@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-6 text-gray-900"> {{-- Pastikan konten di dalam div ini ada --}}
                     <h3 class="text-lg font-medium text-gray-900 mb-4">Selamat Datang, Admin!</h3>
                     <p class="text-gray-700 mb-6">Di sini Anda bisa mengelola kampanye dan verifikasi pembayaran.</p>
 

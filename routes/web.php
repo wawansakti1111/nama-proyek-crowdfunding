@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
 use App\Http\Controllers\Admin\DonationController as AdminDonationController;
-use App\Http\Controllers\ProfileController; // Pastikan ini ada
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('donations/{donation}/cancel', [AdminDonationController::class, 'cancel'])->name('donations.cancel');
     Route::get('donations/history', [AdminDonationController::class, 'history'])->name('donations.history');
 });
-
 
 
 // Rute Autentikasi Bawaan Laravel Breeze

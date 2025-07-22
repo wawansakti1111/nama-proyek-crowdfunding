@@ -17,7 +17,8 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    // PERUBAHAN INI: Mengarahkan langsung ke rute dashboard admin setelah login.
+    public const HOME = '/admin/dashboard';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
