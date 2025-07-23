@@ -45,7 +45,8 @@ class Campaign extends Model
      */
     public function getProgressPercentageAttribute()
     {
-        if ($this->target_amount == 0) {
+        // Pastikan target_amount adalah numerik dan tidak nol
+        if (!is_numeric($this->target_amount) || $this->target_amount == 0) {
             return 0;
         }
         return round(($this->collected_amount / $this->target_amount) * 100, 2);
