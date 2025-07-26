@@ -3,188 +3,103 @@
 @section('title', 'Detail Pembayaran')
 
 @section('content')
-    <div class="payment-detail-container">
-        <h1>Detail Pembayaran Donasi</h1>
-        <p class="campaign-title-info">untuk Kampanye: **{{ $donation->campaign->title }}**</p>
+<style>
+    /* ... (CSS tidak perlu diubah, biarkan seperti yang sudah ada) ... */
+    .payment-detail-container { max-width: 600px; margin: 2rem auto; padding: 2rem; background-color: #fff; border-radius: 8px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .payment-info-box { background-color: #f9fafb; border: 1px solid #e5e7eb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; }
+    .info-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+    .info-item .label { color: #6b7280; }
+    .info-item .value { font-weight: 600; color: #111827; }
+    .total-amount .value { font-size: 1.5rem; color: #ef4444; }
+    .payment-instructions { text-align: left; padding: 1.5rem; border: 1px dashed #ccc; border-radius: 8px; }
+    .bank-details { background-color: #eef2ff; padding: 1rem; border-radius: 4px; margin: 1rem 0; text-align: center; }
+    .bank-details p { margin: 0.5rem 0; }
+    .account-number { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+    .action-buttons { margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; }
+    .btn { padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-paid { background-color: #22c55e; color: white; }
+    .btn-paid:hover { background-color: #16a34a; }
+    .btn-cancel { background-color: #ef4444; color: white; }
+    .btn-cancel:hover { background-color: #dc2626; }
+</style>
 
-        @if(session('info'))
-            <div class="alert alert-info">
-                {{ session('info') }}
-            </div>
-        @endif
-
-        <div class="payment-info-box">
-            <div class="info-item">
-                <span class="label">Nama Donatur:</span>
-                <span class="value">{{ $donation->donor_name }}</span>
-            </div>
-            <div class="info-item">
-                <span class="label">Nominal Donasi:</span>
-                <span class="value">Rp{{ number_format($donation->amount - $donation->unique_code, 0, ',', '.') }}</span>
-            </div>
-            <div class="info-item highlight">
-                <span class="label">Jumlah yang Harus Dibayar:</span>
-                <span class="value total-amount">Rp{{ number_format($donation->amount, 0, ',', '.') }}</span>
-            </div>
-            <div class="info-item highlight">
-                <span class="label">Kode Unik Pembayaran:</span>
-                <span class="value unique-code">{{ $donation->unique_code }}</span>
-            </div>
-            <div class="info-item">
-                <span class="label">Metode Pembayaran:</span>
-                <span class="value">{{ ucfirst(str_replace('_', ' ', $donation->payment_method)) }}</span>
-            </div>
+<div class="payment-detail-container">
+    {{-- ... (Bagian detail pembayaran tidak berubah) ... --}}
+    <h1>Selesaikan Pembayaran Anda</h1>
+    <p style="color: #6b7280; margin-top:-0.5rem; margin-bottom: 2rem;">untuk Kampanye: <strong>{{ $donation->campaign->title }}</strong></p>
+    <div class="payment-info-box">
+        <div class="info-item">
+            <span class="label">Nama Donatur:</span>
+            <span class="value">{{ $donation->donor_name }}</span>
         </div>
-
-        <div class="payment-instructions">
-            <h2>Instruksi Pembayaran</h2>
-            @if ($donation->payment_method == 'transfer_bank')
-                <p>Mohon transfer sejumlah **Rp{{ number_format($donation->amount, 0, ',', '.') }}** ke rekening berikut:</p>
-                <div class="bank-details">
-                    <p>Bank: **{{ $paymentInfo['bank_name'] ?? 'Bank Tidak Ditemukan' }}**</p>
-                    <p>Nomor Rekening: **{{ $paymentInfo['account_number'] ?? 'N/A' }}**</p>
-                    <p>Atas Nama: **{{ $paymentInfo['account_name'] ?? 'N/A' }}**</p>
-                </div>
-                <p>Pastikan jumlah yang ditransfer **TEPAT** termasuk kode unik agar pembayaran Anda dapat diverifikasi dengan cepat.</p>
-            @elseif ($donation->payment_method == 'qris')
-                <p>Scan QRIS berikut menggunakan aplikasi pembayaran Anda:</p>
-                <div class="qris-image-container">
-                    @if (isset($paymentInfo['image']))
-                        <img src="{{ asset('images/' . $paymentInfo['image']) }}" alt="QRIS Code" class="qris-image">
-                    @else
-                        <img src="https://via.placeholder.com/250x250?text=QRIS+Placeholder" alt="QRIS Code Placeholder" class="qris-image">
-                    @endif
-                </div>
-                <p>{{ $paymentInfo['instruction'] ?? 'Ikuti instruksi di aplikasi Anda.' }}</p>
-            @elseif ($donation->payment_method == 'ewallet')
-                <p>Lakukan transfer sejumlah **Rp{{ number_format($donation->amount, 0, ',', '.') }}** ke E-Wallet berikut:</p>
-                <p>**{{ $paymentInfo['instruction'] ?? 'Hubungi admin untuk detail E-Wallet.' }}**</p>
-                <p>Atas Nama: **{{ $paymentInfo['account_name'] ?? 'N/A' }}**</p>
-                <p>Pastikan jumlah yang ditransfer **TEPAT** termasuk kode unik.</p>
-            @else
-                <p>Instruksi pembayaran untuk metode ini belum tersedia. Mohon hubungi admin.</p>
-            @endif
-
-            <p class="payment-note">Waktu pembayaran Anda akan kedaluwarsa dalam **10 menit**.</p>
+        <div class="info-item total-amount">
+            <span class="label">Jumlah Transfer:</span>
+            <span class="value">Rp {{ number_format($donation->amount, 0, ',', '.') }}</span>
         </div>
-
-        <div class="action-buttons">
-            {{-- Tombol "Sudah Membayar" akan mengarah ke halaman konfirmasi --}}
-            <a href="{{ route('donations.confirmation', $donation->id) }}" class="btn-paid">Sudah Membayar</a>
-            {{-- Tombol Batal --}}
-            <a href="{{ route('home') }}" class="btn-cancel">Batalkan Donasi</a>
+        <p style="font-size: 0.8rem; color: #6b7280; text-align: right; margin-top: 0.5rem;">
+            (Termasuk kode unik Rp {{ number_format($donation->unique_code, 0, ',', '.') }})
+        </p>
+    </div>
+    <div class="payment-instructions">
+        <h2>Instruksi Pembayaran</h2>
+        <p>Silakan transfer sejumlah <strong>Rp {{ number_format($donation->amount, 0, ',', '.') }}</strong> ke rekening berikut:</p>
+        <div class="bank-details">
+            <p style="font-size: 1.2rem; font-weight: 600;">{{ config('payment_options.'. $paymentMethod->type .'s')[$paymentMethod->name] ?? $paymentMethod->name }}</p>
+            <p class="account-number">{{ $paymentMethod->account_details }}</p>
+            <p>a/n <strong>{{ $paymentMethod->account_holder_name }}</strong></p>
         </div>
+        <p style="color: #dc2626; font-weight: 500;">PENTING: Pastikan jumlah transfer sesuai hingga 3 digit terakhir agar donasi Anda dapat diverifikasi secara otomatis.</p>
     </div>
 
-    <style>
-        /* CSS tambahan untuk halaman pembayaran */
-        .payment-detail-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            max-width: 700px;
-            margin: 20px auto;
-            text-align: center;
-        }
-        .payment-detail-container h1 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-        .campaign-title-info {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 30px;
-        }
-        .payment-info-box {
-            border: 1px dashed #ccc;
-            padding: 20px;
-            margin-bottom: 30px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .info-item:last-child {
-            border-bottom: none;
-        }
-        .info-item .label {
-            font-weight: bold;
-            color: #444;
-        }
-        .info-item .value {
-            color: #000;
-        }
-        .info-item.highlight .value {
-            color: #d9534f; /* Merah untuk jumlah total dan kode unik */
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .payment-instructions h2 {
-            color: #333;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-        .payment-instructions p {
-            line-height: 1.6;
-            color: #666;
-        }
-        .bank-details, .qris-image-container {
-            background-color: #e6f7ff;
-            border: 1px solid #cceeff;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px auto;
-            max-width: 400px;
-        }
-        .qris-image {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        .payment-note {
-            font-style: italic;
-            color: #888;
-            margin-top: 20px;
-        }
-        .action-buttons {
-            margin-top: 40px;
-        }
-        .btn-paid, .btn-cancel {
-            display: inline-block;
-            padding: 12px 25px;
-            margin: 0 10px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .btn-paid {
-            background-color: #5cb85c; /* Hijau */
-            color: white;
-        }
-        .btn-paid:hover {
-            background-color: #4cae4c;
-        }
-        .btn-cancel {
-            background-color: #f0ad4e; /* Oranye */
-            color: white;
-        }
-        .btn-cancel:hover {
-            background-color: #ec971f;
-        }
-        .alert.alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-    </style>
+    <div class="action-buttons">
+        {{-- =================================== --}}
+        {{--         PERBAIKAN UTAMA DI SINI       --}}
+        {{-- =================================== --}}
+        <button type="button" class="btn btn-paid" onclick="handleConfirmation()">
+            Saya Sudah Bayar
+        </button>
+        {{-- =================================== --}}
+        
+        <a href="{{ route('home') }}" class="btn btn-cancel" onclick="return confirm('Apakah Anda yakin ingin membatalkan donasi ini?')">Batalkan</a>
+    </div>
+</div>
+
+<script>
+function handleConfirmation() {
+    // 1. Siapkan data untuk pesan WhatsApp
+    const phoneNumber = '628979860469';
+    const donorName = "{{ $donation->donor_name }}";
+    const amount = "Rp {{ number_format($donation->amount, 0, ',', '.') }}";
+    const campaignTitle = "{{ $donation->campaign->title }}";
+
+    // 2. Buat format pesan yang rapi
+    const messageLines = [
+        "Assalamualaikum Wr. Wb.",
+        "",
+        "Saya ingin melakukan konfirmasi pembayaran donasi atas nama:",
+        "*Nama Donatur:* " + donorName,
+        "",
+        "Dengan rincian sebagai berikut:",
+        "*Jumlah Transfer:* " + amount,
+        "*Untuk Kampanye:* " + campaignTitle,
+        "",
+        "Mohon untuk segera diperiksa dan diverifikasi.",
+        "Terima kasih atas perhatiannya.",
+        "Wassalamualaikum Wr. Wb.",
+    ];
+    const message = encodeURIComponent(messageLines.join('\n'));
+
+    // 3. Buat URL WhatsApp
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+
+    // 4. Buat URL halaman konfirmasi
+    const confirmationUrl = "{{ route('donations.confirmation', $donation->id) }}";
+
+    // 5. Buka WhatsApp di tab baru
+    window.open(whatsappUrl, '_blank');
+
+    // 6. Arahkan halaman saat ini ke halaman konfirmasi
+    window.location.href = confirmationUrl;
+}
+</script>
 @endsection

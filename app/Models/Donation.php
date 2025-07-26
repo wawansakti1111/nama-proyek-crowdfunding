@@ -14,18 +14,24 @@ class Donation extends Model
         'donor_name',
         'whatsapp_number',
         'amount',
-        'payment_method',
+        'payment_method_id', // DIUBAH
         'unique_code',
         'status',
     ];
 
-    protected $casts = [
-        'amount' => 'decimal:2',
-    ];
-
-    // Relasi: Sebuah donasi termasuk ke dalam satu kampanye
+    /**
+     * Get the campaign that the donation belongs to.
+     */
     public function campaign()
     {
         return $this->belongsTo(Campaign::class);
+    }
+
+    /**
+     * Get the payment method chosen for the donation.
+     */
+    public function paymentMethod()
+    {
+        return $this->belongsTo(PaymentMethod::class);
     }
 }

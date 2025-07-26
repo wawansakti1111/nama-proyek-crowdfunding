@@ -7,7 +7,6 @@ use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class CampaignController extends Controller
 {
@@ -27,8 +26,13 @@ class CampaignController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'target_amount' => 'required|numeric|min:1000',
+            'payment_methods' => 'required|array|min:1',
+            'payment_methods.*.type' => 'required|in:bank,ewallet',
+            'payment_methods.*.name' => 'required|string|max:255',
+            'payment_methods.*.account_holder_name' => 'required|string|max:255',
+            'payment_methods.*.account_details' => 'required|string|max:255',
         ]);
 
         $imagePath = null;
@@ -36,26 +40,43 @@ class CampaignController extends Controller
             $imagePath = $request->file('image')->store('campaign_images', 'public');
         }
 
-        Campaign::create([
+        $campaign = Campaign::create([
             'title' => $request->title,
             'description' => $request->description,
             'image' => $imagePath,
             'target_amount' => $request->target_amount,
-            'collected_amount' => 0,
             'status' => 'pending',
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('admin.campaigns.index')->with('success', 'Kampanye berhasil ditambahkan dan menunggu persetujuan.');
+        if ($request->has('payment_methods')) {
+            foreach ($request->payment_methods as $method) {
+                $campaign->paymentMethods()->create([
+                    'type' => $method['type'],
+                    'name' => $method['name'],
+                    'account_holder_name' => $method['account_holder_name'],
+                    'account_details' => $method['account_details'],
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.campaigns.index')->with('success', 'Kampanye berhasil ditambahkan.');
     }
 
+    /**
+     * INI FUNGSI YANG HILANG
+     * Menampilkan detail spesifik dari sebuah kampanye.
+     */
     public function show(Campaign $campaign)
     {
+        // Memuat relasi user dan paymentMethods agar bisa ditampilkan di view
+        $campaign->load('user', 'paymentMethods');
         return view('admin.campaigns.show', compact('campaign'));
     }
 
     public function edit(Campaign $campaign)
     {
+        $campaign->load('paymentMethods');
         return view('admin.campaigns.edit', compact('campaign'));
     }
 
@@ -64,9 +85,14 @@ class CampaignController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'target_amount' => 'required|numeric|min:1000',
-            'status' => 'required|in:pending,approved,rejected,completed,deleted',
+            'status' => 'required|in:pending,approved,rejected,completed',
+            'payment_methods' => 'required|array|min:1',
+            'payment_methods.*.type' => 'required|in:bank,ewallet',
+            'payment_methods.*.name' => 'required|string|max:255',
+            'payment_methods.*.account_holder_name' => 'required|string|max:255',
+            'payment_methods.*.account_details' => 'required|string|max:255',
         ]);
 
         $imagePath = $campaign->image;
@@ -85,6 +111,18 @@ class CampaignController extends Controller
             'status' => $request->status,
         ]);
 
+        $campaign->paymentMethods()->delete();
+        if ($request->has('payment_methods')) {
+            foreach ($request->payment_methods as $method) {
+                $campaign->paymentMethods()->create([
+                    'type' => $method['type'],
+                    'name' => $method['name'],
+                    'account_holder_name' => $method['account_holder_name'],
+                    'account_details' => $method['account_details'],
+                ]);
+            }
+        }
+
         return redirect()->route('admin.campaigns.index')->with('success', 'Kampanye berhasil diperbarui.');
     }
 
@@ -94,7 +132,6 @@ class CampaignController extends Controller
             Storage::disk('public')->delete($campaign->image);
         }
         $campaign->delete();
-
         return redirect()->route('admin.campaigns.index')->with('success', 'Kampanye berhasil dihapus.');
     }
 

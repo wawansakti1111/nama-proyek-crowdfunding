@@ -3,129 +3,63 @@
 @section('title', 'Donasi untuk ' . $campaign->title)
 
 @section('content')
-    <div class="donation-form-container">
-        <h1>Donasi untuk Kampanye: {{ $campaign->title }}</h1>
-        <p>Target: Rp{{ number_format($campaign->target_amount, 0, ',', '.') }} | Terkumpul: Rp{{ number_format($campaign->collected_amount, 0, ',', '.') }}</p>
+<style>
+    /* Anda bisa memindahkan CSS ini ke file terpisah */
+    .donation-form-container { max-width: 500px; margin: 2rem auto; padding: 2rem; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #333; }
+    .form-group input, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+    .btn-submit-donation { width: 100%; padding: 0.8rem; background-color: #4f46e5; color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; }
+    .btn-submit-donation:hover { background-color: #4338ca; }
+    .error-message { color: #e53e3e; font-size: 0.875rem; margin-top: 0.25rem; }
+</style>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+<div class="donation-form-container">
+    <h1 style="text-align: center; margin-bottom: 1rem; font-size: 1.5rem;">Donasi Sekarang</h1>
+    <h2 style="text-align: center; margin-bottom: 2rem; font-weight: normal; color: #555;">{{ $campaign->title }}</h2>
 
-        <form action="{{ route('donations.store') }}" method="POST" class="donation-form">
-            @csrf {{-- Token CSRF untuk keamanan --}}
+    @if ($errors->any())
+        <div style="background-color:#fed7d7; color: #c53030; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
+            <ul style="list-style: none; padding: 0;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-            <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
+    <form action="{{ route('donations.store') }}" method="POST" class="donation-form">
+        @csrf
+        <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
 
-            <div class="form-group">
-                <label for="donor_name">Nama Anda:</label>
-                <input type="text" id="donor_name" name="donor_name" value="{{ old('donor_name') }}" required>
-            </div>
+        <div class="form-group">
+            <label for="donor_name">Nama Lengkap</label>
+            <input type="text" id="donor_name" name="donor_name" value="{{ old('donor_name') }}" placeholder="Masukkan nama Anda" required>
+        </div>
 
-            <div class="form-group">
-                <label for="whatsapp_number">Nomor WhatsApp (Opsional):</label>
-                <input type="text" id="whatsapp_number" name="whatsapp_number" value="{{ old('whatsapp_number') }}" placeholder="Contoh: 081234567890">
-            </div>
+        <div class="form-group">
+            <label for="whatsapp_number">Nomor WhatsApp (Opsional)</label>
+            <input type="tel" id="whatsapp_number" name="whatsapp_number" value="{{ old('whatsapp_number') }}" placeholder="Contoh: 08123456789">
+        </div>
 
-            <div class="form-group">
-                <label for="amount">Nominal Donasi (Min. Rp 10.000):</label>
-                <input type="number" id="amount" name="amount" value="{{ old('amount') }}" min="10000" required>
-            </div>
+        <div class="form-group">
+            <label for="amount">Jumlah Donasi (Minimal Rp 10.000)</label>
+            <input type="number" id="amount" name="amount" value="{{ old('amount', 10000) }}" min="10000" required>
+        </div>
 
-            <div class="form-group">
-                <label for="payment_method">Metode Pembayaran:</label>
-                <select id="payment_method" name="payment_method" required>
-                    <option value="">Pilih Metode Pembayaran</option>
-                    <option value="transfer_bank" {{ old('payment_method') == 'transfer_bank' ? 'selected' : '' }}>Transfer Bank</option>
-                    <option value="qris" {{ old('payment_method') == 'qris' ? 'selected' : '' }}>QRIS</option>
-                    <option value="ewallet" {{ old('payment_method') == 'ewallet' ? 'selected' : '' }}>E-Wallet (OVO, Dana, dll.)</option>
-                    {{-- Anda bisa menambahkan lebih banyak opsi di sini --}}
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="payment_method_id">Metode Pembayaran</label>
+            <select id="payment_method_id" name="payment_method_id" required>
+                <option value="" disabled selected>Pilih Metode Pembayaran</option>
+                @foreach($paymentMethods as $method)
+                    <option value="{{ $method->id }}" @selected(old('payment_method_id') == $method->id)>
+                        {{ $method->name }} ({{ ucfirst($method->type) }})
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-            <button type="submit" class="btn-submit-donation">Lanjut ke Pembayaran</button>
-        </form>
-    </div>
-
-    <style>
-        /* CSS tambahan untuk halaman donasi */
-        .donation-form-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        .donation-form-container h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .donation-form-container p {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-        }
-        .donation-form .form-group {
-            margin-bottom: 15px;
-        }
-        .donation-form label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        .donation-form input[type="text"],
-        .donation-form input[type="number"],
-        .donation-form select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box; /* Pastikan padding tidak menambah lebar elemen */
-        }
-        .donation-form input[type="number"]::-webkit-inner-spin-button,
-        .donation-form input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        .donation-form input[type="number"] {
-            -moz-appearance: textfield;
-        }
-        .btn-submit-donation {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #007bff; /* Warna biru */
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .btn-submit-donation:hover {
-            background-color: #0056b3;
-        }
-        .alert.alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .alert.alert-danger ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-    </style>
+        <button type="submit" class="btn-submit-donation">Lanjut ke Pembayaran</button>
+    </form>
+</div>
 @endsection

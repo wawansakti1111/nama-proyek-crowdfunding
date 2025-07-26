@@ -9,14 +9,15 @@
         </div>
         <h1>Pembayaran Berhasil Diterima!</h1>
         <p class="message">
-            Terima kasih, **{{ $donation->donor_name }}**! Pembayaran Anda sebesar **Rp{{ number_format($donation->amount, 0, ',', '.') }}** untuk kampanye **{{ $donation->campaign->title }}** telah kami terima dan sedang dalam proses verifikasi oleh admin.
+            Terima kasih, <strong>{{ $donation->donor_name }}</strong>! Pembayaran Anda sebesar <strong>Rp{{ number_format($donation->amount, 0, ',', '.') }}</strong> untuk kampanye <strong>"{{ $donation->campaign->title }}"</strong> telah kami terima dan sedang dalam proses verifikasi oleh admin.
         </p>
         <p class="unique-code-info">
-            Kode unik pembayaran Anda: **{{ $donation->unique_code }}**
+            Kode unik pembayaran Anda: <strong>{{ $donation->unique_code }}</strong>
         </p>
 
         <div class="status-info">
             <p>Status Pembayaran Anda saat ini:</p>
+            {{-- Status 'paid' artinya sudah bayar, menunggu verifikasi admin --}}
             <span class="status-badge status-{{ $donation->status }}">
                 {{ ucfirst($donation->status) }}
             </span>
@@ -82,7 +83,7 @@
             margin: 10px 0;
         }
         .status-pending { background-color: #f0ad4e; } /* Oranye */
-        .status-paid { background-color: #007bff; }    /* Biru */
+        .status-paid { background-color: #007bff; }     /* Biru */
         .status-verified { background-color: #5cb85c; } /* Hijau */
         .status-cancelled { background-color: #d9534f; } /* Merah */
         .next-steps {

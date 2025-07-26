@@ -1,67 +1,62 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Detail Kampanye') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-2xl font-bold mb-4">{{ $campaign->title }}</h3>
-                    <p class="text-gray-700 mb-4">{{ $campaign->description }}</p>
+@section('title', $campaign->title)
 
-                    <div class="mb-4">
-                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}" class="w-full h-64 object-cover rounded-lg shadow-md">
-                    </div>
+@section('content')
+<style>
+    /* Anda dapat memindahkan CSS ini ke file terpisah */
+    .campaign-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .campaign-image { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; }
+    .campaign-title { font-size: 2rem; font-weight: bold; margin-bottom: 1rem; color: #111827; }
+    .progress-bar-container { background-color: #e5e7eb; border-radius: 9999px; height: 1.5rem; overflow: hidden; margin-bottom: 1rem; }
+    .progress-bar { background-color: #22c55e; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+    .fund-details { display: flex; justify-content: space-between; margin-bottom: 1.5rem; font-size: 1.1rem; }
+    .campaign-description { color: #374151; line-height: 1.6; }
+    .donate-button-container { margin-top: 2rem; text-align: center; }
+    .btn-donate { display: inline-block; padding: 1rem 3rem; background-color: #4f46e5; color: white; font-size: 1.2rem; font-weight: bold; border-radius: 8px; text-decoration: none; transition: background-color 0.2s; }
+    .btn-donate:hover { background-color: #4338ca; }
+    .campaign-ended { text-align: center; padding: 1rem; background-color: #f3f4f6; border-radius: 8px; margin-top: 2rem; font-weight: bold; color: #6b7280; }
+</style>
 
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800">Target Donasi:</h4>
-                        <p class="text-lg text-green-600">Rp {{ number_format($campaign->goal_amount, 0, ',', '.') }}</p>
-                    </div>
+<div class="campaign-container">
+    <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}" class="campaign-image">
 
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800">Donasi Terkumpul:</h4>
-                        <p class="text-lg text-blue-600">Rp {{ number_format($campaign->raised_amount, 0, ',', '.') }}</p>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ ($campaign->raised_amount / $campaign->goal_amount) * 100 }}%"></div>
-                        </div>
-                    </div>
+    <h1 class="campaign-title">{{ $campaign->title }}</h1>
 
-                    <div class="mb-4">
-                        <strong>Status:</strong>
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                            @if ($campaign->status === 'approved') bg-green-100 text-green-800
-                            @elseif ($campaign->status === 'pending') bg-yellow-100 text-yellow-800
-                            @elseif ($campaign->status === 'rejected') bg-red-100 text-red-800
-                            @else bg-gray-100 text-gray-800
-                            @endif">
-                            {{ ucfirst($campaign->status) }}
-                        </span>
-                    </div>
+    @php
+        $progress = ($campaign->collected_amount / $campaign->target_amount) * 100;
+    @endphp
 
-                    <div class="mb-4">
-                        <strong>Dibuat Oleh:</strong> {{ $campaign->user->name ?? 'N/A' }}
-                    </div>
-                    <div class="mb-4">
-                        <strong>Tanggal Dibuat:</strong> {{ $campaign->created_at->format('d M Y H:i') }}
-                    </div>
-                    <div class="mb-4">
-                        <strong>Terakhir Diupdate:</strong> {{ $campaign->updated_at->format('d M Y H:i') }}
-                    </div>
-
-                    <div class="mt-6 flex space-x-2">
-                        <a href="{{ route('admin.campaigns.edit', $campaign->id) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            Edit Kampanye
-                        </a>
-                        {{-- PERBAIKAN DI SINI: Tag <a> yang sebelumnya terpotong --}}
-                        <a href="{{ route('admin.campaigns.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            Kembali ke Daftar Kampanye
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar" style="width: {{ $progress > 100 ? 100 : $progress }}%;">
+            {{ number_format($progress, 1) }}%
         </div>
     </div>
-</x-app-layout>
+
+    <div class="fund-details">
+        <div>
+            <strong>Terkumpul:</strong>
+            <span style="color: #16a34a;">Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</span>
+        </div>
+        <div>
+            <strong>Target:</strong>
+            <span>Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</span>
+        </div>
+    </div>
+
+    <div class="campaign-description">
+        {!! nl2br(e($campaign->description)) !!}
+    </div>
+
+    <div class="donate-button-container">
+        {{-- PERBAIKAN UTAMA: Tombol ini hanya muncul jika status kampanye 'approved' --}}
+        @if($campaign->status == 'approved')
+            <a href="{{ route('donations.create', $campaign->id) }}" class="btn-donate">Donasi Sekarang</a>
+        @else
+            <div class="campaign-ended">
+                Kampanye ini sedang tidak aktif.
+            </div>
+        @endif
+    </div>
+</div>
+@endsection

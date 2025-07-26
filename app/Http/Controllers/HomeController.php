@@ -12,25 +12,30 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Ambil kampanye yang sudah disetujui
         $campaigns = Campaign::where('status', 'approved')
-                             ->orderByDesc('collected_amount')
+                             // Hitung jumlah donasi yang statusnya 'verified' untuk setiap kampanye
+                             ->withCount(['donations' => function ($query) {
+                                 $query->where('status', 'verified');
+                             }])
                              ->latest()
-                             ->get();
+                             ->paginate(9); // Menggunakan paginate untuk membatasi data per halaman
 
         return view('home', compact('campaigns'));
     }
 
     /**
-     * Menampilkan halaman detail kampanye.
+     * Menampilkan halaman detail dari sebuah kampanye.
      */
-    public function show(Campaign $campaign) // Laravel secara otomatis mengikat ID ke model Campaign
+    public function show(Campaign $campaign)
     {
-        // Pastikan kampanye yang diakses adalah yang berstatus 'approved'
-        // atau bisa juga menampilkan pesan error jika tidak ditemukan
         if ($campaign->status !== 'approved') {
-            abort(404); // Tampilkan halaman 404 Not Found jika kampanye tidak aktif/disetujui
+            abort(404, 'Kampanye tidak ditemukan atau belum disetujui.');
         }
 
-        return view('campaigns.show', compact('campaign'));
+        // Ambil juga jumlah donatur untuk halaman detail
+        $donatorCount = $campaign->donations()->where('status', 'verified')->count();
+
+        return view('campaigns.show', compact('campaign', 'donatorCount'));
     }
 }
