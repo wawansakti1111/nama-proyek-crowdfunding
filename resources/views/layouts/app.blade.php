@@ -154,7 +154,7 @@
 
             .slider-wrapper {
                 display: flex;
-                transition: transform 0.5s ease-in-out;
+                transition: transform 0.8s ease-in-out; /* Increased transition duration */
             }
 
             .slide {
@@ -164,6 +164,12 @@
                 color: var(--white);
                 padding: 4rem 2rem;
                 text-align: center;
+                opacity: 0; /* Start with opacity 0 for fade effect */
+                transition: opacity 0.8s ease-in-out; /* Add transition for opacity */
+            }
+
+            .slide.active {
+                opacity: 1; /* Active slide is fully visible */
             }
 
             .slide-content {
@@ -528,110 +534,53 @@
                         <a href="{{ route('home') }}">Beranda</a>
                         <a href="#kampanye">Kampanye</a>
                         <a href="#tentang">Tentang Kami</a>
-                        <a href="#kontak">Hubungi Kami</a>
-                        @guest
-                            <a href="{{ route('login') }}" class="login-btn">Login Admin</a>
-                        @endguest
+                        <a href="#kontak">Kontak</a>
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="login-btn">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="login-btn">Masuk</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="login-btn" style="background-color: var(--primary-green-light); color: var(--white);">Daftar</a>
+                            @endif
+                        @endauth
                     </nav>
                 </div>
             </div>
 
-            {{-- Page Heading --}}
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            {{-- Main Content --}}
+            {{-- Page Content --}}
             <main>
-                <div class="container">
-                    @if (isset($slot))
-                        {{ $slot }}
-                    @else
-                        @yield('content')
-                    @endif
-                </div>
+                @yield('content')
             </main>
+
+            {{-- Footer --}}
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Tentang Kami</h3>
+                        <p>Platform Pesantren adalah inisiatif untuk mendukung pendidikan Islam melalui crowdfunding. Kami menghubungkan pesantren dengan para donatur yang peduli.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Tautan Cepat</h3>
+                        <ul>
+                            <li><a href="{{ route('home') }}">Beranda</a></li>
+                            <li><a href="#kampanye">Kampanye Aktif</a></li>
+                            <li><a href="#tentang">Tentang Kami</a></li>
+                            <li><a href="#kontak">Kontak</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Hubungi Kami</h3>
+                        <p>Email: info@platformpesantren.id</p>
+                        <p>Telepon: +62 812-3456-7890</p>
+                        <p>Alamat: Jl. Contoh No. 123, Kota Santri, Indonesia</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; {{ date('Y') }} Platform Pesantren. All rights reserved.
+                </div>
+            </footer>
         </div>
-
-        {{-- Footer --}}
-        <div class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Platform Pesantren</h3>
-                    <p>Membangun masa depan yang lebih baik melalui pendidikan Islam yang berkualitas. Mari bersama-sama mendukung pengembangan pondok pesantren di seluruh nusantara.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Pondok Pesantren</h3>
-                    <p><a href="#">Pesantren Al-Hidayah</a></p>
-                    <p><a href="#">Pesantren Darul Ulum</a></p>
-                    <p><a href="#">Pesantren An-Nur</a></p>
-                    <p><a href="#">Pesantren Al-Falah</a></p>
-                    <p><a href="#">Pesantren Baitul Hikmah</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>Layanan</h3>
-                    <p><a href="#kampanye">Kampanye Donasi</a></p>
-                    <p><a href="#">Program Beasiswa</a></p>
-                    <p><a href="#">Pembangunan Fasilitas</a></p>
-                    <p><a href="#">Pelatihan Ustadz</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>Kontak</h3>
-                    <p>Email: info@platformpesantren.id</p>
-                    <p>Telepon: +62 21 1234 5678</p>
-                    <p>WhatsApp: +62 812 3456 7890</p>
-                    <p>Alamat: Jakarta, Indonesia</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; {{ date('Y') }} Platform Pesantren. Semua Hak Dilindungi. Dibuat dengan ❤️ untuk kemajuan pendidikan Islam.</p>
-            </div>
-        </div>
-
-        {{-- JavaScript for Slider --}}
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const slider = document.querySelector('.slider-wrapper');
-                const slides = document.querySelectorAll('.slide');
-                const dots = document.querySelectorAll('.nav-dot');
-                let currentSlide = 0;
-
-                function showSlide(index) {
-                    if (slider && slides.length > 0) {
-                        slider.style.transform = `translateX(-${index * 100}%)`;
-                        
-                        dots.forEach((dot, i) => {
-                            dot.classList.toggle('active', i === index);
-                        });
-                        
-                        currentSlide = index;
-                    }
-                }
-
-                // Auto-slide functionality
-                function nextSlide() {
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    showSlide(currentSlide);
-                }
-
-                // Initialize slider
-                if (slides.length > 0) {
-                    showSlide(0);
-                    
-                    // Auto-advance slides every 5 seconds
-                    setInterval(nextSlide, 5000);
-                    
-                    // Dot navigation
-                    dots.forEach((dot, index) => {
-                        dot.addEventListener('click', () => showSlide(index));
-                    });
-                }
-            });
-        </script>
     </body>
 </html>
+
 
