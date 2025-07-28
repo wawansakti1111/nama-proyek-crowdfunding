@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Campaign;
+use App\Models\Donation;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -10,22 +12,25 @@ class HomeController extends Controller
     /**
      * Menampilkan halaman utama dengan daftar kampanye.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil kampanye yang sudah disetujui
-        $campaigns = Campaign::where('status', 'approved')
-                             // Hitung jumlah donasi yang statusnya 'verified' untuk setiap kampanye
-                             ->withCount(['donations' => function ($query) {
-                                 $query->where('status', 'verified');
-                             }])
-                             ->latest()
-                             ->paginate(9); // Menggunakan paginate untuk membatasi data per halaman
+        // Start a query builder
+        $query = Campaign::where('status', 'approved');
 
+        // If there is a search query, filter the results
+        if ($request->has('search')) {
+            $query->where('title', 'like', '%' . $request->input('search') . '%');
+        }
+
+        // Get the paginated results
+        $campaigns = $query->latest()->paginate(9);
+
+        // Kirim data kampanye ke view 'home'
         return view('home', compact('campaigns'));
     }
 
     /**
-     * Menampilkan halaman detail dari sebuah kampanye.
+     * Menampilkan halaman detail untuk satu kampanye.
      */
     public function show(Campaign $campaign)
     {
@@ -33,9 +38,9 @@ class HomeController extends Controller
             abort(404, 'Kampanye tidak ditemukan atau belum disetujui.');
         }
 
-        // Ambil juga jumlah donatur untuk halaman detail
-        $donatorCount = $campaign->donations()->where('status', 'verified')->count();
+        $donors = $campaign->donations()->where('status', 'verified')->latest()->get();
+        $comments = $campaign->comments()->latest()->get();
 
-        return view('campaigns.show', compact('campaign', 'donatorCount'));
+        return view('campaigns.show', compact('campaign', 'donors', 'comments'));
     }
 }

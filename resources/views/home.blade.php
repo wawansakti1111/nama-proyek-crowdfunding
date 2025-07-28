@@ -50,26 +50,25 @@
         gap: 5px; 
     }
     
-    /* Hero Section with Enhanced Slider */
     .hero-section {
-        padding: 4rem 0 5rem 0; /* Increased spacing from header and to next section */
+        padding: 4rem 0 5rem 0;
         background: linear-gradient(135deg, var(--emerald-50) 0%, var(--teal-50) 100%);
     }
     
     .slider-container {
         position: relative;
         margin: 0 auto;
-        max-width: 1200px; /* Increased from 1000px */
+        max-width: 1200px;
         overflow: hidden;
-        border-radius: 2rem; /* Increased border radius */
-        box-shadow: var(--shadow-xl); /* Enhanced shadow */
+        border-radius: 2rem;
+        box-shadow: var(--shadow-xl);
         background: linear-gradient(135deg, var(--emerald-600), var(--teal-600));
-        border: 3px solid var(--white); /* Added white border for prominence */
+        border: 3px solid var(--white);
     }
 
     .slider-wrapper {
         position: relative;
-        height: 480px; /* Increased from 400px */
+        height: 480px;
     }
 
     .slide {
@@ -79,7 +78,7 @@
         width: 100%;
         height: 100%;
         color: var(--white);
-        padding: 4rem 3rem; /* Increased padding */
+        padding: 4rem 3rem;
         text-align: center;
         opacity: 0;
         transform: translateX(100%);
@@ -90,10 +89,8 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        position: relative;
     }
 
-    /* Enhanced overlay for better prominence */
     .slide::before {
         content: '';
         position: absolute;
@@ -119,14 +116,14 @@
     }
 
     .slide-content {
-        max-width: 800px; /* Increased from 700px */
+        max-width: 800px;
         margin: 0 auto;
         position: relative;
         z-index: 2;
     }
 
     .slide h3 {
-        font-size: 3rem; /* Increased from 2.5rem */
+        font-size: 3rem;
         font-weight: 700;
         margin-bottom: 1.5rem;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -134,7 +131,7 @@
     }
 
     .slide p {
-        font-size: 1.3rem; /* Increased from 1.2rem */
+        font-size: 1.3rem;
         margin-bottom: 2.5rem;
         opacity: 0.95;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -147,7 +144,7 @@
         gap: 0.5rem;
         background-color: var(--white);
         color: var(--emerald-700);
-        padding: 1.2rem 2.5rem; /* Increased padding */
+        padding: 1.2rem 2.5rem;
         border-radius: 2rem;
         text-decoration: none;
         font-weight: 600;
@@ -164,16 +161,16 @@
 
     .slider-nav {
         position: absolute;
-        bottom: 2rem; /* Increased from 1.5rem */
+        bottom: 2rem;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: 0.75rem; /* Increased gap */
+        gap: 0.75rem;
         z-index: 10;
     }
 
     .nav-dot {
-        width: 14px; /* Increased from 12px */
+        width: 14px;
         height: 14px;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.5);
@@ -184,10 +181,9 @@
 
     .nav-dot.active {
         background-color: var(--white);
-        transform: scale(1.3); /* Increased from 1.2 */
+        transform: scale(1.3);
     }
 
-    /* Enhanced Slider Arrow Navigation */
     .slider-arrow {
         position: absolute;
         top: 50%;
@@ -195,7 +191,7 @@
         background-color: rgba(255, 255, 255, 0.25);
         color: var(--white);
         border: 3px solid rgba(255, 255, 255, 0.4);
-        width: 60px; /* Increased from 50px */
+        width: 60px;
         height: 60px;
         border-radius: 50%;
         cursor: pointer;
@@ -203,7 +199,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem; /* Increased from 1.2rem */
+        font-size: 1.5rem;
         z-index: 10;
         font-weight: bold;
     }
@@ -215,14 +211,13 @@
     }
 
     .slider-arrow.prev {
-        left: 2rem; /* Increased from 1.5rem */
+        left: 2rem;
     }
 
     .slider-arrow.next {
         right: 2rem;
     }
     
-    /* Natural Grid Sections - Minimal Effects */
     .section {
         padding: 3rem 0;
     }
@@ -239,7 +234,6 @@
         border-radius: 1.5rem;
     }
     
-    /* Search and Filter Section */
     .search-filter-section {
         background: var(--white);
         border-radius: 1rem;
@@ -324,12 +318,11 @@
         background: var(--white);
     }
     
-    /* Natural Statistics Grid */
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 1.5rem;
-        margin: 3rem 0; /* Increased margin */
+        margin: 3rem 0;
     }
     
     .stat-card {
@@ -360,7 +353,6 @@
         font-size: 1rem;
     }
     
-    /* Natural Features Grid */
     .features-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -406,7 +398,6 @@
         line-height: 1.6;
     }
 
-    /* Natural Campaign Grid */
     .campaign-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -458,6 +449,7 @@
         border-radius: 3px;
         overflow: hidden;
         margin: 1rem 0;
+        position: relative;
     }
 
     .progress-bar {
@@ -465,6 +457,15 @@
         background: linear-gradient(135deg, var(--emerald-500), var(--teal-500));
         border-radius: 3px;
         transition: width 0.3s ease;
+    }
+
+    .progress-percentage-text {
+        position: absolute;
+        top: -20px;
+        right: 0;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--slate-700);
     }
 
     .campaign-footer {
@@ -480,7 +481,6 @@
         font-weight: 600;
     }
 
-    /* Simple Page Titles */
     .page-title {
         font-size: 3rem;
         font-weight: 700;
@@ -494,14 +494,13 @@
         font-size: 1.2rem;
         text-align: center;
         color: var(--slate-600);
-        margin-bottom: 3rem; /* Increased margin */
+        margin-bottom: 3rem;
         max-width: 700px;
         margin-left: auto;
         margin-right: auto;
         line-height: 1.5;
     }
 
-    /* Simple Section Titles */
     .section-title {
         text-align: center;
         font-size: 2.5rem;
@@ -510,13 +509,11 @@
         margin-bottom: 2.5rem;
     }
 
-    /* Contact Section */
     .contact-section {
         background: linear-gradient(135deg, var(--emerald-600), var(--teal-600));
         border-radius: 1.5rem;
     }
 
-    /* Simple Buttons */
     .btn {
         display: inline-flex;
         align-items: center;
@@ -540,14 +537,12 @@
         background: var(--emerald-50);
     }
 
-    /* Content Wrapper */
     .content-wrapper {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 1rem;
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
         .hero-section {
             padding: 2rem 0 3rem 0;
@@ -633,11 +628,11 @@
         <div class="slider-container">
             <div class="slider-wrapper">
                 {{-- Slide 1: Pesantren Al-Hidayah --}}
-                <div class="slide active" style="background-image: url('{{ asset('images/slider/pesantren-1.jpg') }}');">
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1583913582413-af01a8a238a2?q=80&w=2070&auto=format&fit=crop');">
                     <div class="slide-content">
                         <h3>Pesantren Al-Hidayah</h3>
                         <p>Mendidik generasi Qur'ani dengan fasilitas modern dan pembelajaran yang komprehensif. Bergabunglah dalam misi mulia membangun masa depan yang lebih baik.</p>
-                        <a href="https://pesantren-alhidayah.id" class="slide-btn" target="_blank">
+                        <a href="#" class="slide-btn">
                             <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
                             </svg>
@@ -647,53 +642,11 @@
                 </div>
                 
                 {{-- Slide 2: Pesantren Darul Ulum --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/pesantren-2.jpg') }}');">
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1618079493926-fe3e563513a3?q=80&w=2070&auto=format&fit=crop');">
                     <div class="slide-content">
                         <h3>Pesantren Darul Ulum</h3>
                         <p>Pusat pendidikan Islam terpadu yang mengombinasikan ilmu agama dan sains modern. Mari bersama membangun generasi yang berakhlak mulia dan berprestasi.</p>
-                        <a href="https://pesantren-darululum.id" class="slide-btn" target="_blank">
-                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Kunjungi Website
-                        </a>
-                    </div>
-                </div>
-                
-                {{-- Slide 3: Pesantren An-Nur --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/pesantren-3.jpg') }}');">
-                    <div class="slide-content">
-                        <h3>Pesantren An-Nur</h3>
-                        <p>Lembaga pendidikan yang fokus pada pembentukan karakter Islami dan pengembangan potensi santri. Bersama kita wujudkan cita-cita pendidikan yang berkualitas.</p>
-                        <a href="https://pesantren-annur.id" class="slide-btn" target="_blank">
-                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Kunjungi Website
-                        </a>
-                    </div>
-                </div>
-                
-                {{-- Slide 4: Pesantren Al-Falah --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/pesantren-4.jpg') }}');">
-                    <div class="slide-content">
-                        <h3>Pesantren Al-Falah</h3>
-                        <p>Menghadirkan pendidikan holistik yang menyeimbangkan spiritual, intelektual, dan sosial. Dukung kami dalam mencerdaskan anak bangsa melalui pendidikan Islam.</p>
-                        <a href="https://pesantren-alfalah.id" class="slide-btn" target="_blank">
-                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Kunjungi Website
-                        </a>
-                    </div>
-                </div>
-                
-                {{-- Slide 5: Pesantren Baitul Hikmah --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/pesantren-5.jpg') }}');">
-                    <div class="slide-content">
-                        <h3>Pesantren Baitul Hikmah</h3>
-                        <p>Rumah kebijaksanaan yang melahirkan ulama dan cendekiawan Muslim. Bergabunglah dalam misi suci mencetak generasi pemimpin masa depan yang berintegritas.</p>
-                        <a href="https://pesantren-baitulhikmah.id" class="slide-btn" target="_blank">
+                        <a href="#" class="slide-btn">
                             <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
                             </svg>
@@ -702,373 +655,206 @@
                     </div>
                 </div>
             </div>
-            
-            {{-- Enhanced Slider Arrow Navigation --}}
-            <button class="slider-arrow prev" onclick="changeSlide(-1)">‹</button>
-            <button class="slider-arrow next" onclick="changeSlide(1)">›</button>
-            
-            {{-- Enhanced Slider Navigation Dots --}}
             <div class="slider-nav">
-                <div class="nav-dot active" onclick="currentSlide(1)"></div>
-                <div class="nav-dot" onclick="currentSlide(2)"></div>
-                <div class="nav-dot" onclick="currentSlide(3)"></div>
-                <div class="nav-dot" onclick="currentSlide(4)"></div>
-                <div class="nav-dot" onclick="currentSlide(5)"></div>
+                <span class="nav-dot active" data-slide="0"></span>
+                <span class="nav-dot" data-slide="1"></span>
+            </div>
+            <div class="slider-arrow prev">&lt;</div>
+            <div class="slider-arrow next">&gt;</div>
+        </div>
+    </div>
+</div>
+
+{{-- Search and Filter Section --}}
+<div class="section content-wrapper">
+    <div class="search-filter-section">
+        <div class="search-filter-container">
+            <div class="search-box">
+                <svg class="search-icon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+                </svg>
+                <input type="text" placeholder="Cari kampanye..." class="search-input">
+            </div>
+            <div class="filter-container">
+                <span class="filter-label">Urutkan:</span>
+                <select class="filter-select">
+                    <option>Terbaru</option>
+                    <option>Terpopuler</option>
+                    <option>Target Terbesar</option>
+                </select>
+            </div>
+            <div class="filter-container">
+                <span class="filter-label">Kategori:</span>
+                <select class="filter-select">
+                    <option>Semua</option>
+                    <option>Pendidikan</option>
+                    <option>Kesehatan</option>
+                    <option>Lingkungan</option>
+                </select>
             </div>
         </div>
     </div>
 </div>
 
-{{-- Main Content --}}
-<div class="content-wrapper">
-    <div style="padding: 2.5rem 0;">
-        <h1 class="page-title">Bantu Mereka yang Membutuhkan</h1>
-        <p class="page-subtitle">Setiap donasi Anda membawa harapan baru. Mari berbuat baik bersama dan wujudkan mimpi pendidikan Islam yang berkualitas!</p>
+{{-- Main Content Section --}}
+<div class="section content-wrapper">
+    <h2 class="section-title">Kampanye Terbaru</h2>
+    <div class="campaign-grid">
+        @foreach($campaigns as $campaign)
+        <div class="campaign-item">
+            <a href="{{ route('campaigns.show', $campaign->id) }}">
+                <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
+                <div class="campaign-content">
+                    <h3 class="campaign-title">{{ $campaign->title }}</h3>
+                    <p class="text-muted">{{ Str::limit($campaign->description, 100) }}</p>
+                    
+                    @php
+                        $percentage = $campaign->target_amount > 0 ? round(($campaign->collected_amount / $campaign->target_amount) * 100) : 0;
+                    @endphp
+                    <div class="progress-bar-container">
+                        <div class="progress-percentage-text">{{ $percentage }}%</div>
+                        <div class="progress-bar" style="width: {{ $percentage }}%;"></div>
+                    </div>
 
-        {{-- Statistics Section --}}
+                    <div class="campaign-footer">
+                        <div>Terkumpul: <strong>Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</strong></div>
+                        <div>Target: <span>Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</span></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+{{-- About Us Section --}}
+<div class="section content-wrapper">
+    <div class="section-tentang p-8 text-center">
+        <h2 class="section-title">Tentang Kami</h2>
+        <p class="page-subtitle">Platform crowdfunding terpercaya untuk membantu mewujudkan impian dan memberikan dampak positif bagi masyarakat. Bergabunglah bersama kami!</p>
         <div class="stats-grid">
             <div class="stat-card">
-                <span class="stat-number">5</span>
-                <div class="stat-label">Pondok Pesantren</div>
+                <span class="stat-number">100+</span>
+                <span class="stat-label">Kampanye Berhasil</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">2,500+</span>
-                <div class="stat-label">Santri Aktif</div>
+                <span class="stat-number">5000+</span>
+                <span class="stat-label">Donatur Setia</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">150+</span>
-                <div class="stat-label">Ustadz & Ustadzah</div>
+                <span class="stat-number">Rp 10M+</span>
+                <span class="stat-label">Dana Terkumpul</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">25+</span>
-                <div class="stat-label">Tahun Pengalaman</div>
+                <span class="stat-number">99%</span>
+                <span class="stat-label">Kepuasan Pengguna</span>
             </div>
         </div>
+    </div>
+</div>
 
-        {{-- Campaign Section with Search and Filter --}}
-        <section id="kampanye" class="section section-kampanye" style="margin: 3rem 0; padding: 3rem 2rem;">
-            <h2 class="section-title">Kampanye Aktif</h2>
-            
-            {{-- Search and Filter Section --}}
-            <div class="search-filter-section">
-                <form method="GET" action="{{ route('home') }}" class="search-filter-container">
-                    {{-- Search Box --}}
-                    <div class="search-box">
-                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="M21 21l-4.35-4.35"></path>
-                        </svg>
-                        <input 
-                            type="text" 
-                            name="search" 
-                            class="search-input" 
-                            placeholder="Cari kampanye berdasarkan judul atau deskripsi..."
-                            value="{{ request('search') }}"
-                        >
-                    </div>
-                    
-                    {{-- Filter Section --}}
-                    <div class="filter-container">
-                        <span class="filter-label">Urutkan:</span>
-                        <select name="sort" class="filter-select" onchange="this.form.submit()">
-                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
-                            <option value="most_funded" {{ request('sort') == 'most_funded' ? 'selected' : '' }}>Dana Terbanyak</option>
-                            <option value="most_donors" {{ request('sort') == 'most_donors' ? 'selected' : '' }}>Donatur Terbanyak</option>
-                            <option value="ending_soon" {{ request('sort') == 'ending_soon' ? 'selected' : '' }}>Segera Berakhir</option>
-                        </select>
-                    </div>
-                </form>
+{{-- Features Section --}}
+<div class="section content-wrapper">
+    <h2 class="section-title">Mengapa Memilih Kami?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="30" height="30" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
             </div>
-            
-            {{-- Campaign Results --}}
-            @if(request('search'))
-                <div style="margin-bottom: 1.5rem; padding: 1rem; background: var(--emerald-50); border-radius: 0.5rem; border-left: 4px solid var(--emerald-500);">
-                    <p style="margin: 0; color: var(--emerald-700); font-weight: 500;">
-                        <svg style="display: inline-block; margin-right: 0.5rem;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="M21 21l-4.35-4.35"></path>
-                        </svg>
-                        Hasil pencarian untuk: "<strong>{{ request('search') }}</strong>" 
-                        ({{ $campaigns->total() }} kampanye ditemukan)
-                    </p>
-                </div>
-            @endif
-            
-            <div class="campaign-grid">
-                @forelse($campaigns as $campaign)
-                    <div class="campaign-item">
-                        <a href="{{ route('campaign.show', $campaign->id) }}">
-                            @if($campaign->image)
-                                <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
-                            @else
-                                <img src="https://via.placeholder.com/400x300/10b981/ffffff?text=Bantu+Kami" alt="{{ $campaign->title }}">
-                            @endif
-                            <div class="campaign-content">
-                                <h3 class="campaign-title">{{ $campaign->title }}</h3>
-
-                                @php
-                                    $progress = $campaign->target_amount > 0 ? ($campaign->collected_amount / $campaign->target_amount) * 100 : 0;
-                                @endphp
-
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" style="width: {{ min($progress, 100) }}%;"></div>
-                                </div>
-
-                                <div class="campaign-footer">
-                                    <div>
-                                        <strong>Terkumpul:</strong>
-                                        <span style="color: var(--emerald-600); font-weight: 600;">Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</span>
-                                    </div>
-                                    
-                                    <div class="donator-count">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                            <circle cx="9" cy="7" r="4"></circle>
-                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                        </svg>
-                                        <strong>{{ $campaign->donations_count }}</strong> Donatur
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                @empty
-                    <div style="text-align: center; grid-column: 1 / -1; padding: 40px;">
-                        <div style="font-size: 3rem; color: var(--emerald-300); margin-bottom: 1rem;">
-                            @if(request('search'))
-                                <svg width="60" height="60" fill="currentColor" viewBox="0 0 20 20" style="display: block; margin: 0 auto;">
-                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
-                                </svg>
-                            @else
-                                <svg width="60" height="60" fill="currentColor" viewBox="0 0 20 20" style="display: block; margin: 0 auto;">
-                                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
-                                </svg>
-                            @endif
-                        </div>
-                        @if(request('search'))
-                            <h3 style="font-size: 1.3rem; color: var(--slate-700); margin-bottom: 0.5rem; font-weight: 600;">Tidak ada kampanye yang ditemukan</h3>
-                            <p style="color: var(--slate-500); margin-bottom: 1rem;">Coba gunakan kata kunci yang berbeda atau hapus filter pencarian.</p>
-                            <a href="{{ route('home') }}" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--emerald-500); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 1rem; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M3 6h18l-2 13H5L3 6z"></path>
-                                    <path d="M3 6L2.25 3H1"></path>
-                                </svg>
-                                Lihat Semua Kampanye
-                            </a>
-                        @else
-                            <h3 style="font-size: 1.3rem; color: var(--slate-700); margin-bottom: 0.5rem; font-weight: 600;">Saat ini belum ada kampanye yang aktif</h3>
-                            <p style="color: var(--slate-500);">Pantau terus halaman ini untuk kampanye terbaru!</p>
-                        @endif
-                    </div>
-                @endforelse
+            <h3 class="feature-title">Terpercaya & Aman</h3>
+            <p class="feature-description">Sistem keamanan terdepan untuk melindungi data dan transaksi Anda.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="30" height="30" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+                </svg>
             </div>
-
-            {{-- Pagination --}}
-            <div style="margin-top: 2.5rem; display: flex; justify-content: center;">
-                {{ $campaigns->appends(request()->query())->links() }}
+            <h3 class="feature-title">Mudah Digunakan</h3>
+            <p class="feature-description">Antarmuka intuitif untuk pengalaman berdonasi yang lancar.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg width="30" height="30" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"/>
+                </svg>
             </div>
-        </section>
+            <h3 class="feature-title">Dampak Nyata</h3>
+            <p class="feature-description">Setiap donasi Anda memberikan perubahan positif yang signifikan.</p>
+        </div>
+    </div>
+</div>
 
-        {{-- About Section --}}
-        <section id="tentang" class="section section-tentang" style="margin: 3rem 0; padding: 3rem 2rem;">
-            <h2 class="section-title">Mengapa Memilih Kami?</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 12l2 2 4-4"></path>
-                            <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"></path>
-                            <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"></path>
-                            <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"></path>
-                            <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"></path>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Terpercaya & Transparan</h3>
-                    <p class="feature-description">Setiap donasi yang masuk dikelola dengan transparansi penuh dan dapat dipertanggungjawabkan kepada para donatur.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Dampak Nyata</h3>
-                    <p class="feature-description">Kontribusi Anda memberikan dampak langsung pada kehidupan santri dan pengembangan fasilitas pesantren.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Komunitas Peduli</h3>
-                    <p class="feature-description">Bergabung dengan ribuan donatur lainnya yang peduli pada masa depan pendidikan Islam di Indonesia.</p>
-                </div>
-            </div>
-        </section>
-
-        {{-- Contact Section --}}
-        <section id="kontak" class="section contact-section" style="margin: 3rem 0; padding: 3rem 2rem; color: var(--white); text-align: center;">
-            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Mari Berkolaborasi</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.5;">Hubungi kami untuk informasi lebih lanjut tentang program dan cara berkontribusi</p>
-            
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="mailto:info@platformpesantren.id" class="btn btn-secondary">
-                    <svg style="display: inline-block;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    Email Kami
-                </a>
-                <a href="https://wa.me/6281234567890" class="btn btn-secondary" target="_blank">
-                    <svg style="display: inline-block;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                    </svg>
-                    WhatsApp
-                </a>
-            </div>
-        </section>
+{{-- Contact Section --}}
+<div class="section content-wrapper">
+    <div class="contact-section p-8 text-center text-white">
+        <h2 class="section-title text-white">Hubungi Kami</h2>
+        <p class="page-subtitle text-white">Punya pertanyaan atau ingin berkolaborasi? Jangan ragu untuk menghubungi kami!</p>
+        <a href="#" class="btn btn-secondary">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+            Kirim Email
+        </a>
     </div>
 </div>
 
 <script>
-let currentSlideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.nav-dot');
-const totalSlides = slides.length;
-let autoSlideInterval;
+    // Slider functionality
+    const slides = document.querySelectorAll('.slide');
+    const navDots = document.querySelectorAll('.nav-dot');
+    const prevArrow = document.querySelector('.slider-arrow.prev');
+    const nextArrow = document.querySelector('.slider-arrow.next');
+    let currentSlide = 0;
 
-function showSlide(index) {
-    // Remove active class from all slides and dots
-    slides.forEach(slide => {
-        slide.classList.remove('active', 'prev', 'next');
-    });
-    dots.forEach(dot => {
-        dot.classList.remove('active');
-    });
-
-    // Set current slide as active
-    slides[index].classList.add('active');
-    dots[index].classList.add('active');
-
-    // Set previous and next slides for transition effects
-    const prevIndex = (index - 1 + totalSlides) % totalSlides;
-    const nextIndex = (index + 1) % totalSlides;
-    
-    slides[prevIndex].classList.add('prev');
-    slides[nextIndex].classList.add('next');
-
-    currentSlideIndex = index;
-}
-
-function nextSlide() {
-    const nextIndex = (currentSlideIndex + 1) % totalSlides;
-    showSlide(nextIndex);
-}
-
-function prevSlide() {
-    const prevIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
-    showSlide(prevIndex);
-}
-
-function currentSlide(index) {
-    showSlide(index - 1);
-    resetAutoSlide();
-}
-
-function changeSlide(direction) {
-    if (direction === 1) {
-        nextSlide();
-    } else {
-        prevSlide();
-    }
-    resetAutoSlide();
-}
-
-function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 6000); // Change slide every 6 seconds
-}
-
-function resetAutoSlide() {
-    clearInterval(autoSlideInterval);
-    startAutoSlide();
-}
-
-// Initialize slider
-document.addEventListener('DOMContentLoaded', function() {
-    showSlide(0);
-    startAutoSlide();
-    
-    // Pause auto-slide on hover
-    const sliderContainer = document.querySelector('.slider-container');
-    if (sliderContainer) {
-        sliderContainer.addEventListener('mouseenter', () => {
-            clearInterval(autoSlideInterval);
-        });
-        
-        sliderContainer.addEventListener('mouseleave', () => {
-            startAutoSlide();
-        });
-    }
-});
-
-// Keyboard navigation
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowLeft') {
-        changeSlide(-1);
-    } else if (e.key === 'ArrowRight') {
-        changeSlide(1);
-    }
-});
-
-// Search functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.querySelector('.search-input');
-    const searchForm = document.querySelector('.search-filter-container');
-    
-    if (searchInput && searchForm) {
-        // Auto-submit on Enter key
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchForm.submit();
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active', 'prev', 'next');
+            if (i === index) {
+                slide.classList.add('active');
+            } else if (i < index) {
+                slide.classList.add('prev');
+            } else {
+                slide.classList.add('next');
             }
         });
-        
-        // Optional: Auto-submit after typing delay
-        let searchTimeout;
-        searchInput.addEventListener('input', function() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                if (this.value.length >= 3 || this.value.length === 0) {
-                    searchForm.submit();
-                }
-            }, 1000); // Submit after 1 second of no typing
+        navDots.forEach((dot, i) => {
+            dot.classList.remove('active');
+            if (i === index) {
+                dot.classList.add('active');
+            }
         });
+        currentSlide = index;
     }
-});
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    navDots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            showSlide(parseInt(e.target.dataset.slide));
+        });
     });
-});
+
+    prevArrow.addEventListener('click', prevSlide);
+    nextArrow.addEventListener('click', nextSlide);
+
+    // Auto-slide every 5 seconds
+    setInterval(nextSlide, 5000);
+
+    // Initial slide display
+    showSlide(0);
 </script>
 @endsection
 

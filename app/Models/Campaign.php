@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models; // <-- INI PERUBAHANNYA
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Comment; // Pastikan ini juga di-use
+use App\Models\Donation; // Pastikan ini juga di-use
+use App\Models\User; // Pastikan ini juga di-use
+use App\Models\PaymentMethod; // Pastikan ini juga di-use
 
 class Campaign extends Model
 {
@@ -20,7 +24,7 @@ class Campaign extends Model
     ];
 
     /**
-     * Relasi: Sebuah kampanye dimiliki oleh satu user (admin).
+     * Relasi ke User
      */
     public function user()
     {
@@ -28,7 +32,7 @@ class Campaign extends Model
     }
 
     /**
-     * Relasi: Sebuah kampanye memiliki banyak donasi.
+     * Relasi ke Donation
      */
     public function donations()
     {
@@ -36,11 +40,18 @@ class Campaign extends Model
     }
 
     /**
-     * Relasi BARU: Sebuah kampanye memiliki banyak metode pembayaran.
-     * Ini adalah kunci agar bisa menyimpan dan mengambil data metode pembayaran.
+     * Relasi ke PaymentMethod
      */
     public function paymentMethods()
     {
         return $this->hasMany(PaymentMethod::class);
+    }
+
+    /**
+     * Relasi ke Comment
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

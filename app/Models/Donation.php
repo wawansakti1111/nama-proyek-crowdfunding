@@ -11,16 +11,17 @@ class Donation extends Model
 
     protected $fillable = [
         'campaign_id',
+        'user_id', // Pastikan user_id ada di sini
         'donor_name',
         'whatsapp_number',
         'amount',
-        'payment_method_id', // DIUBAH
+        'payment_method_id',
         'unique_code',
         'status',
     ];
 
     /**
-     * Get the campaign that the donation belongs to.
+     * Relasi ke model Campaign.
      */
     public function campaign()
     {
@@ -28,10 +29,19 @@ class Donation extends Model
     }
 
     /**
-     * Get the payment method chosen for the donation.
+     * Relasi ke model PaymentMethod.
      */
     public function paymentMethod()
     {
         return $this->belongsTo(PaymentMethod::class);
+    }
+
+    /**
+     * INI YANG DITAMBAHKAN
+     * Relasi ke model User.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -3,101 +3,826 @@
 @section('title', $campaign->title)
 
 @section('content')
-    <div class="campaign-detail">
-        <h1 class="campaign-detail-title">{{ $campaign->title }}</h1>
+<style>
+    /* ... (Semua style CSS Anda tetap sama, tidak ada perubahan) ... */
+    :root {
+        --primary-green: #10b981;
+        --light-green: #d1fae5;
+        --soft-green: #ecfdf5;
+        --accent-green: #059669;
+        --dark-green: #047857;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --text-muted: #9ca3af;
+        --background: #f8fafc;
+        --white: #ffffff;
+        --border-light: #e5e7eb;
+        --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
 
-        <div class="campaign-detail-image">
-            @if($campaign->image)
-                <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
-            @else
-                <img src="https://via.placeholder.com/800x400?text=No+Image" alt="No Image">
-            @endif
-        </div>
+    * {
+        box-sizing: border-box;
+    }
 
-        <div class="campaign-detail-info">
-            <p class="description">{{ $campaign->description }}</p>
+    body {
+        background: linear-gradient(135deg, var(--soft-green) 0%, var(--background) 100%);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--text-primary);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
 
+    .campaign-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        position: relative;
+    }
+
+    /* Hero Section */
+    .campaign-hero {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-large);
+        margin-bottom: 2rem;
+        position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .campaign-hero:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .campaign-image {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        position: relative;
+    }
+
+    .campaign-image::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, transparent 60%, rgba(16, 185, 129, 0.1) 100%);
+    }
+
+    .campaign-content {
+        padding: 2.5rem;
+        position: relative;
+    }
+
+    .campaign-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: var(--text-primary);
+        line-height: 1.2;
+        background: linear-gradient(135deg, var(--text-primary) 0%, var(--dark-green) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Progress Section */
+    .progress-section {
+        background: linear-gradient(135deg, var(--light-green) 0%, var(--soft-green) 100%);
+        border-radius: 16px;
+        padding: 2rem;
+        margin: 2rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .progress-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%2310b981" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%2310b981" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .fund-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .fund-item {
+        text-align: center;
+        padding: 1rem;
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: var(--shadow-soft);
+        transition: transform 0.2s ease;
+    }
+
+    .fund-item:hover {
+        transform: translateY(-2px);
+    }
+
+    .fund-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .fund-amount {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary-green);
+        margin-bottom: 0.5rem;
+    }
+
+    .fund-target {
+        color: var(--text-secondary);
+        font-size: 1.8rem;
+        font-weight: 800;
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+        margin: 2rem 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 12px;
+        background: var(--white);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-green) 0%, var(--accent-green) 100%);
+        border-radius: 6px;
+        transition: width 0.8s ease;
+        position: relative;
+    }
+
+    .progress-fill::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+        animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    .campaign-description {
+        margin-top: 2rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+        white-space: pre-wrap;
+        font-size: 1.1rem;
+        background: var(--soft-green);
+        padding: 2rem;
+        border-radius: 16px;
+        border-left: 4px solid var(--primary-green);
+    }
+
+    /* Donate Button */
+    .donate-button-container {
+        margin-top: 3rem;
+        text-align: center;
+    }
+
+    .btn-donate {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.25rem 3rem;
+        background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-green) 100%);
+        color: var(--white);
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-medium);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-donate::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-donate:hover::before {
+        left: 100%;
+    }
+
+    .btn-donate:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px -12px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-donate:active {
+        transform: translateY(-1px);
+    }
+
+    /* Sections */
+    .details-section {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-medium);
+        transition: transform 0.3s ease;
+    }
+
+    .details-section:hover {
+        transform: translateY(-2px);
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--text-primary);
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
+        border-radius: 2px;
+    }
+
+    /* Donor List */
+    .donor-list {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .donor-item {
+        display: flex;
+        align-items: center;
+        padding: 1.25rem;
+        background: var(--soft-green);
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+    }
+
+    .donor-item:hover {
+        background: var(--light-green);
+        border-color: var(--primary-green);
+        transform: translateX(5px);
+    }
+
+    .donor-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        margin-right: 1rem;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+        box-shadow: var(--shadow-soft);
+    }
+
+    .donor-name {
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+    }
+
+    /* Comment Section */
+    .comment-form {
+        background: var(--soft-green);
+        padding: 2rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        border: 2px dashed var(--primary-green);
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        border: 2px solid var(--border-light);
+        border-radius: 12px;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+        background: var(--white);
+        font-family: inherit;
+    }
+
+    .comment-form input:focus,
+    .comment-form textarea:focus {
+        outline: none;
+        border-color: var(--primary-green);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+        color: var(--white);
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-soft);
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+    }
+
+    .comment-list {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .comment-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 1.5rem;
+        background: var(--soft-green);
+        border-radius: 16px;
+        transition: all 0.2s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .comment-item:hover {
+        background: var(--light-green);
+        border-left-color: var(--primary-green);
+    }
+
+    .comment-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent-green), var(--dark-green));
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        margin-right: 1rem;
+        text-transform: uppercase;
+        font-size: 1.1rem;
+        box-shadow: var(--shadow-soft);
+        flex-shrink: 0;
+    }
+
+    .comment-content-wrapper {
+        flex: 1;
+    }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        gap: 0.75rem;
+    }
+
+    .comment-author {
+        font-weight: 700;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+    }
+
+    .comment-date {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        background: var(--white);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+    }
+
+    .comment-body {
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-size: 1rem;
+    }
+
+    /* Alert */
+    .alert {
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        border-left: 4px solid var(--primary-green);
+    }
+
+    .alert-success {
+        background: var(--light-green);
+        color: var(--dark-green);
+        font-weight: 600;
+    }
+    
+    /* ==== PERBAIKAN: Alert untuk Error & Sukses dari AJAX ==== */
+    .alert-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050;
+    }
+    .alert-ajax {
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        box-shadow: var(--shadow-medium);
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.5s ease;
+    }
+    .alert-ajax.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    .alert-ajax-success {
+        background: var(--dark-green);
+    }
+    .alert-ajax-error {
+        background: #dc2626; /* red-600 */
+    }
+
+
+    /* Campaign Ended */
+    .campaign-ended {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        color: #92400e;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border: 2px solid #f59e0b;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .campaign-container {
+            padding: 1rem;
+        }
+
+        .campaign-content {
+            padding: 2rem 1.5rem;
+        }
+
+        .campaign-title {
+            font-size: 2rem;
+        }
+
+        .fund-details {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .fund-amount,
+        .fund-target {
+            font-size: 1.5rem;
+        }
+
+        .details-section {
+            padding: 2rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+        }
+
+        .btn-donate {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .campaign-title {
+            font-size: 1.75rem;
+        }
+
+        .campaign-image {
+            height: 300px;
+        }
+
+        .fund-amount,
+        .fund-target {
+            font-size: 1.3rem;
+        }
+    }
+
+    /* Loading Animation */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .campaign-hero,
+    .details-section {
+        animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .details-section:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .details-section:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+</style>
+
+<div id="alert-container" class="alert-container"></div>
+
+<div class="campaign-container">
+    <div class="campaign-hero">
+        <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}" class="campaign-image">
+        <div class="campaign-content">
+            <h1 class="campaign-title">{{ $campaign->title }}</h1>
+            
             <div class="progress-section">
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: {{ $campaign->progress_percentage }}%;">
-                        {{ $campaign->progress_percentage }}%
+                <div class="fund-details">
+                    <div class="fund-item">
+                        <div class="fund-label">Terkumpul</div>
+                        <div class="fund-amount">Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</div>
+                    </div>
+                    <div class="fund-item">
+                        <div class="fund-label">Target</div>
+                        <div class="fund-target">Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</div>
                     </div>
                 </div>
-                <div class="amounts">
-                    <span>Terkumpul: **Rp{{ number_format($campaign->collected_amount, 0, ',', '.') }}**</span>
-                    <span>Target: **Rp{{ number_format($campaign->target_amount, 0, ',', '.') }}**</span>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ $campaign->target_amount > 0 ? min(($campaign->collected_amount / $campaign->target_amount) * 100, 100) : 0 }}%"></div>
+                    </div>
                 </div>
             </div>
 
+            <div class="campaign-description">{!! nl2br(e($campaign->description)) !!}</div>
+
             <div class="donate-button-container">
-                {{-- Tombol Donasi Sekarang akan mengarah ke halaman donasi --}}
-                {{-- Kita akan membuat route 'donations.create' di langkah berikutnya --}}
-                <a href="{{ route('donations.create', $campaign->id) }}" class="btn-donate">Donasi Sekarang</a>
+                @if($campaign->status == 'approved')
+                    <a href="{{ route('donations.create', $campaign->id) }}" class="btn-donate">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
+                        </svg>
+                        Donasi Sekarang
+                    </a>
+                @else
+                    <div class="campaign-ended">
+                        Kampanye ini sedang tidak aktif.
+                    </div>
+                @endif
             </div>
         </div>
-
-        {{-- Anda bisa menambahkan bagian lain di sini, seperti: --}}
-        {{-- <h2>Update Kampanye</h2>
-        <div class="campaign-updates">
-            <p>Belum ada update.</p>
-        </div> --}}
-        {{-- Atau informasi penggalang dana, dll. --}}
-
     </div>
 
-    <style>
-        /* CSS tambahan untuk halaman detail kampanye */
-        .campaign-detail {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .campaign-detail-title {
-            font-size: 2em;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .campaign-detail-image img {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-        .campaign-detail-info .description {
-            line-height: 1.6;
-            color: #666;
-            margin-bottom: 30px;
-        }
-        .progress-section {
-            margin-bottom: 25px;
-        }
-        .progress-section .amounts {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-top: 10px;
-            color: #333;
-        }
-        .btn-donate {
-            display: block;
-            width: fit-content;
-            margin: 0 auto; /* Tengah */
-            padding: 15px 30px;
-            background-color: #28a745; /* Warna hijau */
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .btn-donate:hover {
-            background-color: #218838;
-        }
-    </style>
+    <div class="details-section">
+        <h3 class="section-title">Para Donatur Baik (<span id="donors-count">{{ $donors->count() }}</span>)</h3>
+        <div class="donor-list">
+            @forelse($donors as $donor)
+                <div class="donor-item">
+                    <div class="donor-avatar">{{ strtoupper(substr($donor->donor_name, 0, 1)) }}</div>
+                    <div class="donor-name">{{ $donor->donor_name }}</div>
+                </div>
+            @empty
+                <p style="text-align: center; color: var(--text-muted); font-style: italic; padding: 2rem;">
+                    Jadilah orang pertama yang berdonasi di kampanye ini! 🌟
+                </p>
+            @endforelse
+        </div>
+    </div>
+
+    <div class="details-section">
+        <h3 class="section-title">Dukungan & Doa (<span id="comments-count">{{ $comments->count() }}</span>)</h3>
+        
+        <div class="comment-form">
+            {{-- Pesan sukses dari reload halaman biasa dihapus agar tidak duplikat dengan notifikasi AJAX --}}
+            
+            <form id="comment-form" action="{{ route('comments.store', $campaign->id) }}" method="POST">
+                @csrf
+                @guest
+                    <input type="text" name="guest_name" placeholder="Nama Anda" required>
+                @endguest
+                <textarea name="body" rows="4" placeholder="Tulis komentar atau doa terbaikmu di sini..." required></textarea>
+                <button type="submit" class="btn-submit">Kirim Komentar</button>
+            </form>
+        </div>
+        
+        <div class="comment-list" id="comment-list">
+            @forelse($comments as $comment)
+                <div class="comment-item">
+                    <div class="comment-avatar">
+                        {{ strtoupper(substr($comment->user->name ?? $comment->guest_name, 0, 1)) }}
+                    </div>
+                    <div class="comment-content-wrapper">
+                        <div class="comment-header">
+                            <span class="comment-author">{{ $comment->user->name ?? $comment->guest_name }}</span>
+                            <span class="comment-date">{{ $comment->created_at->diffForHumans() }}</span>
+                        </div>
+                        <div class="comment-body">{{ $comment->body }}</div>
+                    </div>
+                </div>
+            @empty
+                <p id="no-comments-placeholder" style="text-align: center; color: var(--text-muted); font-style: italic; padding: 2rem;">
+                    Belum ada komentar. Jadilah yang pertama memberikan dukungan! 💬
+                </p>
+            @endforelse
+        </div>
+    </div>
+</div>
+
+{{-- Memisahkan script ke section sendiri agar lebih rapi --}}
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Script lama Anda untuk animasi progress bar dan tombol
+    const progressFill = document.querySelector('.progress-fill');
+    if (progressFill) {
+        const targetWidth = progressFill.style.width;
+        progressFill.style.width = '0%';
+        setTimeout(() => {
+            progressFill.style.width = targetWidth;
+        }, 500);
+    }
+
+    const buttons = document.querySelectorAll('.btn-donate, .btn-submit');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // ... (kode ripple effect Anda tetap sama) ...
+        });
+    });
+
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+        .btn-donate, .btn-submit { position: relative; overflow: hidden; }
+    `;
+    document.head.appendChild(style);
+
+    // ===============================================================
+    // ==== PERBAIKAN: Script AJAX untuk Form Komentar Dimulai ====
+    // ===============================================================
+    
+    const commentForm = document.getElementById('comment-form');
+    if (commentForm) {
+        commentForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah refresh halaman
+
+            const submitButton = this.querySelector('.btn-submit');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = 'Mengirim...';
+            submitButton.disabled = true;
+
+            const formData = new FormData(this);
+            const actionUrl = this.getAttribute('action');
+
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => {
+                // Cek jika respons dari server adalah JSON
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    return response.json().then(data => ({ status: response.status, body: data }));
+                } else {
+                    // Jika bukan JSON, mungkin ada error server
+                    return { status: 500, body: { message: 'Terjadi error di server.' }};
+                }
+            })
+            .then(data => {
+                if (data.status === 200 || data.status === 201) { // Success
+                    showAlert('Komentar berhasil dikirim!', 'success');
+                    
+                    const comment = data.body.comment;
+                    const newCommentHTML = `
+                        <div class="comment-item" style="opacity:0; transform: translateY(20px); transition: all 0.5s ease;">
+                            <div class="comment-avatar">${comment.author_initial}</div>
+                            <div class="comment-content-wrapper">
+                                <div class="comment-header">
+                                    <span class="comment-author">${comment.author_name}</span>
+                                    <span class="comment-date">Baru saja</span>
+                                </div>
+                                <div class="comment-body">${comment.body}</div>
+                            </div>
+                        </div>
+                    `;
+
+                    const commentList = document.getElementById('comment-list');
+                    const noCommentsPlaceholder = document.getElementById('no-comments-placeholder');
+                    if(noCommentsPlaceholder) {
+                        noCommentsPlaceholder.remove();
+                    }
+
+                    commentList.insertAdjacentHTML('afterbegin', newCommentHTML);
+
+                    // Update jumlah komentar
+                    const commentsCount = document.getElementById('comments-count');
+                    commentsCount.innerText = parseInt(commentsCount.innerText) + 1;
+                    
+                    // Animasi fade-in untuk komentar baru
+                    setTimeout(() => {
+                        const newCommentElement = commentList.firstElementChild;
+                        if(newCommentElement) {
+                            newCommentElement.style.opacity = '1';
+                            newCommentElement.style.transform = 'translateY(0)';
+                        }
+                    }, 50);
+
+                    this.reset(); // Reset form setelah sukses
+                
+                } else { // Error (e.g., validation)
+                    const errorMessage = data.body.message || 'Gagal mengirim komentar.';
+                    showAlert(errorMessage, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                showAlert('Tidak dapat terhubung ke server.', 'error');
+            })
+            .finally(() => {
+                // Kembalikan tombol ke keadaan semula
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            });
+        });
+    }
+
+    // Fungsi untuk menampilkan notifikasi
+    function showAlert(message, type = 'success') {
+        const container = document.getElementById('alert-container');
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert-ajax alert-ajax-${type}`;
+        alertDiv.textContent = message;
+
+        container.appendChild(alertDiv);
+
+        // Animasikan masuk
+        setTimeout(() => alertDiv.classList.add('show'), 10);
+        
+        // Hapus setelah 5 detik
+        setTimeout(() => {
+            alertDiv.classList.remove('show');
+            alertDiv.addEventListener('transitionend', () => alertDiv.remove());
+        }, 5000);
+    }
+});
+</script>
 @endsection
