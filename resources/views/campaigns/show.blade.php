@@ -152,10 +152,8 @@
             <form id="comment-form" action="{{ route('comments.store', $campaign->id) }}" method="POST">
                 @csrf
                 @guest
-                    {{-- PERBAIKAN: Memberi ID agar mudah diakses JavaScript --}}
                     <input type="text" id="guest_name" name="guest_name" placeholder="Nama Anda" required>
                 @endguest
-                 {{-- PERBAIKAN: Memberi ID agar mudah diakses JavaScript --}}
                 <textarea id="comment_body" name="body" rows="4" placeholder="Tulis komentar atau doa terbaikmu di sini..." required></textarea>
                 <button type="submit" class="btn-submit">Kirim Komentar</button>
             </form>
@@ -186,7 +184,6 @@
 
 @endsection
 
-@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Script animasi progress bar
@@ -223,13 +220,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => {
                 if (!response.ok) {
-                    // Jika response error (seperti validasi 422), ubah jadi JSON
                     return response.json().then(err => { throw err; });
                 }
-                return response.json(); // Jika sukses
+                return response.json();
             })
             .then(data => {
-                // Ini hanya berjalan jika fetch berhasil (status 2xx)
                 showAlert(data.message || 'Komentar berhasil dikirim!', 'success');
                 
                 const comment = data.comment;
@@ -239,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="comment-content-wrapper">
                             <div class="comment-header">
                                 <span class="comment-author">${comment.author_name}</span>
-                                <span class="comment-date">Baru saja</span>
+                                <span class="comment-date">${comment.created_at}</span>
                             </div>
                             <div class="comment-body">${comment.body}</div>
                         </div>
@@ -257,29 +252,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 const commentsCount = document.getElementById('comments-count');
                 commentsCount.innerText = parseInt(commentsCount.innerText) + 1;
                 
+                commentForm.reset();
+
                 setTimeout(() => {
                     const newCommentElement = commentList.firstElementChild;
-                    if(newCommentElement) {
-                        newCommentElement.style.opacity = '1';
+                    if (newCommentElement) {
+                        newCommentElement.style.opacity = 1;
                         newCommentElement.style.transform = 'translateY(0)';
                     }
-                }, 50);
-
-                // Mengosongkan form input
-                this.reset();
-            
+                }, 100);
             })
             .catch(error => {
-                // Blok ini menangani error jaringan atau error validasi
-                let errorMessage = 'Gagal mengirim komentar. Silakan coba lagi.';
+                console.error("Error:", error);
+                let errorMessage = "Terjadi kesalahan saat mengirim komentar.";
                 if (error.errors) {
-                    // Ambil pesan error pertama dari validasi Laravel
-                    errorMessage = Object.values(error.errors)[0][0];
-                } else if (error.message) {
-                    errorMessage = error.message;
+                    errorMessage = Object.values(error.errors).flat().join("\n");
                 }
-                console.error('Fetch Error:', error);
-                showAlert(errorMessage, 'error');
+                showAlert(errorMessage, "error");
             })
             .finally(() => {
                 submitButton.innerHTML = originalButtonText;
@@ -288,22 +277,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fungsi untuk menampilkan notifikasi
-    function showAlert(message, type = 'success') {
-        const container = document.getElementById('alert-container');
-        const alertDiv = document.createElement('div');
+    function showAlert(message, type) {
+        const alertContainer = document.getElementById("alert-container");
+        const alertDiv = document.createElement("div");
         alertDiv.className = `alert-ajax alert-ajax-${type}`;
         alertDiv.textContent = message;
+        alertContainer.appendChild(alertDiv);
 
-        container.appendChild(alertDiv);
-
-        setTimeout(() => alertDiv.classList.add('show'), 10);
-        
         setTimeout(() => {
-            alertDiv.classList.remove('show');
-            alertDiv.addEventListener('transitionend', () => alertDiv.remove());
+            alertDiv.classList.add("show");
+        }, 10);
+
+        setTimeout(() => {
+            alertDiv.classList.remove("show");
+            alertDiv.addEventListener("transitionend", () => alertDiv.remove());
         }, 5000);
     }
 });
 </script>
-@endpush
+

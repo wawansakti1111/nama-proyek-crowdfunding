@@ -47,6 +47,7 @@ class CommentController extends Controller
             // Ambil huruf pertama dari nama untuk avatar
             'author_initial' => strtoupper(substr($authorName, 0, 1)),
             'body' => $comment->body,
+            'created_at' => $comment->created_at->diffForHumans(),
         ];
 
         // Kirim response sukses

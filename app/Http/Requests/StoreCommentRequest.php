@@ -12,7 +12,6 @@ class StoreCommentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Izinkan semua orang (login maupun tidak) untuk membuat request ini
         return true;
     }
 
@@ -23,30 +22,31 @@ class StoreCommentRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Aturan dasar
         $rules = [
-            'comment' => 'required|string|max:1000',
+            // *** INI ADALAH PERUBAHAN KRUSIAL: 'comment' DIUBAH MENJADI 'body' ***
+            'body' => 'required|string|max:1000', 
         ];
 
-        // Jika pengguna adalah guest (tidak login), tambahkan aturan untuk nama dan email
         if (Auth::guest()) {
-            $rules['name'] = 'required|string|max:255';
-            $rules['email'] = 'required|email|max:255';
+            // *** INI ADALAH PERUBAHAN KRUSIAL: 'name' DIUBAH MENJADI 'guest_name' ***
+            $rules['guest_name'] = 'required|string|max:255'; 
+
         }
 
         return $rules;
     }
 
     /**
-     * Pesan error kustom (opsional, tapi bagus untuk UX)
+     * Pesan error kustom.
      */
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
-            'comment.required' => 'Komentar tidak boleh kosong.',
+            // *** PERBAIKAN PESAN ERROR SESUAI NAMA FIELD BARU ***
+            'guest_name.required' => 'Nama wajib diisi.',
+
+            'body.required' => 'Komentar tidak boleh kosong.',
+            'body.max' => 'Komentar terlalu panjang, maksimal 1000 karakter.',
         ];
     }
 }
