@@ -2,76 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Campaign;
 use App\Models\Comment;
-use App\Models\Campaign; // Pastikan model Campaign di-import
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator; // <-- PENTING: Tambahkan ini
+use App\Http\Requests\StoreCommentRequest; // <-- Gunakan Form Request yang sudah diupdate
 
 class CommentController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Campaign  $campaign
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * Simpan komentar baru ke database.
+     * Route: POST /comments/{campaign}
+     * Name: comments.store
      */
-    public function store(Request $request, Campaign $campaign)
+    public function store(StoreCommentRequest $request, Campaign $campaign)
     {
-        // 1. Validasi input secara manual agar bisa mengirim respons JSON
-        $validator = Validator::make($request->all(), [
-            // guest_name wajib diisi HANYA JIKA pengguna tidak login
-            'guest_name' => 'required_if:user_id,null|string|max:255',
-            'body'       => 'required|string|min:5|max:1000',
-        ]);
+        // Validasi akan ditangani otomatis oleh StoreCommentRequest.
+        // Jika gagal, response error 422 dengan pesan JSON akan dikirim.
 
-        // Jika validasi gagal
-        if ($validator->fails()) {
-            // Jika permintaan datang dari AJAX, kirim error sebagai JSON
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'success' => false, 
-                    'message' => $validator->errors()->first()
-                ], 422); // 422 Unprocessable Entity
-            }
-            // Jika permintaan biasa, kembali ke halaman sebelumnya dengan error
-            return back()->withErrors($validator)->withInput();
+        $comment = new Comment();
+        $comment->campaign_id = $campaign->id;
+        $comment->body = $request->body; // <-- Gunakan 'body' dari request
+
+        $authorName = '';
+        $authorInitial = '';
+
+        if (Auth::check()) {
+            // Jika user login
+            $user = Auth::user();
+            $comment->user_id = $user->id;
+            // Kolom guest_name bisa kita isi juga untuk konsistensi data
+            $comment->guest_name = $user->name; 
+            $authorName = $user->name;
+        } else {
+            // Jika user adalah guest
+            $comment->guest_name = $request->guest_name; // <-- Gunakan 'guest_name'
+            $authorName = $request->guest_name;
         }
 
-        // 2. Simpan komentar ke database
-        $comment = Comment::create([
-            // Jika user login, ambil ID-nya. Jika tamu, simpan sebagai null.
-            'user_id'     => Auth::id(),
+        $comment->save();
 
-            // Ambil ID dari campaign yang sedang dibuka
-            'campaign_id' => $campaign->id,
+        // Siapkan data untuk response JSON sesuai yang dibutuhkan frontend
+        $newCommentData = [
+            'author_name' => $authorName,
+            // Ambil huruf pertama dari nama untuk avatar
+            'author_initial' => strtoupper(substr($authorName, 0, 1)),
+            'body' => $comment->body,
+        ];
 
-            // Jika user login, guest_name diisi null.
-            // Jika tamu, simpan nama dari input form.
-            'guest_name'  => Auth::check() ? null : $request->guest_name,
-            
-            'body'        => $request->body,
+        // Kirim response sukses
+        // Laravel otomatis akan memberikan status 201 (Created) atau 200 (OK)
+        return response()->json([
+            'message' => 'Komentar berhasil dikirim!', // Pesan untuk notifikasi
+            'comment' => $newCommentData
         ]);
-
-        // 3. Kirim respons berdasarkan jenis permintaan
-        
-        // Jika permintaan datang dari AJAX, kirim data komentar baru sebagai JSON
-        if ($request->expectsJson()) {
-            $authorName = $comment->user->name ?? $comment->guest_name;
-            return response()->json([
-                'success' => true,
-                'message' => 'Komentar berhasil dikirim!',
-                'comment' => [
-                    // Gunakan htmlspecialchars untuk keamanan
-                    'author_name'    => htmlspecialchars($authorName),
-                    'author_initial' => strtoupper(substr($authorName, 0, 1)),
-                    'body'           => htmlspecialchars($comment->body),
-                ]
-            ], 201); // 201 Created
-        }
-
-        // Jika permintaan biasa, kembali ke halaman sebelumnya dengan pesan sukses
-        return back()->with('success', 'Komentar Anda berhasil dikirim!');
     }
 }

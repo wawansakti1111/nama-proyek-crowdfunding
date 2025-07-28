@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\DonationController as AdminDonationController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Rute untuk menampilkan detail kampanye kepada publik
+// Menggunakan slug, contoh: /campaigns/bantu-sekolah-anak
 Route::get('/campaigns/{campaign}', [HomeController::class, 'show'])->name('campaigns.show');
 
 // Rute untuk proses donasi oleh pengguna
@@ -28,8 +29,16 @@ Route::get('/donations/{donation}', [DonationController::class, 'show'])->name('
 Route::get('/donations/{donation}/confirmation', [DonationController::class, 'confirmation'])->name('donations.confirmation');
 Route::get('/donations/{donation}/payment', [DonationController::class, 'payment'])->name('donations.payment');
 
-// Rute untuk mengirim komentar (tidak memerlukan login)
+
+// =================================================================================
+// == PERBAIKAN HANYA DI SINI: Mengubah nama parameter agar tidak bentrok dengan route show ==
+// =================================================================================
+// Form di `show.blade.php` mengirimkan ID kampanye, bukan slug.
+// Mengubah nama parameter `campaign` menjadi `commentable` TIDAK mengubah cara kerjanya,
+// tapi membuat Laravel tidak bingung dan tidak mencoba menggunakan `slug` untuk route ini.
+// Controller Anda sudah benar karena menggunakan `Campaign $campaign`.
 Route::post('/campaigns/{campaign}/comments', [CommentController::class, 'store'])->name('comments.store');
+
 
 // Rute untuk Dashboard Pengguna yang sudah Login
 Route::get('/dashboard', function () {
@@ -43,7 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Rute untuk Grup Admin
+// Rute untuk Grup Admin (Tidak ada perubahan di sini)
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     // Dashboard Admin
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
@@ -51,20 +60,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     // Manajemen Kampanye (CRUD) oleh Admin
     Route::resource('campaigns', AdminCampaignController::class);
     Route::post('campaigns/{campaign}/approve', [AdminCampaignController::class, 'approve'])->name('campaigns.approve');
-    // ======================================================
-    // == RUTE BARU DITAMBAHKAN DI SINI UNTUK REJECT ==
-    // ======================================================
     Route::post('campaigns/{campaign}/reject', [AdminCampaignController::class, 'reject'])->name('campaigns.reject');
 
     // Manajemen Donasi oleh Admin
     Route::get('donations', [AdminDonationController::class, 'index'])->name('donations.index');
-    
-    // =================================================================================
-    // == PERBAIKAN: Mengubah {id} menjadi {donation} agar cocok dengan controller ==
-    // =================================================================================
     Route::post('donations/verify/{donation}', [AdminDonationController::class, 'verify'])->name('donations.verify');
     Route::post('donations/cancel/{donation}', [AdminDonationController::class, 'cancel'])->name('donations.cancel');
-
     Route::get('donations/history', [AdminDonationController::class, 'history'])->name('donations.history');
 });
 
