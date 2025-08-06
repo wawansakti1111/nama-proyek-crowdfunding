@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HomeController; // Pastikan ini ada
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\CommentController;
@@ -18,6 +18,11 @@ use App\Http\Controllers\Admin\DonationController as AdminDonationController;
 // Rute untuk Halaman Utama (Homepage)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// --- BARIS INI YANG DITAMBAHKAN/DIUBAH UNTUK MEMPERBAIKI ERROR 'campaigns.index' ---
+// Rute untuk menampilkan daftar semua kampanye
+Route::get('/campaigns', [HomeController::class, 'index'])->name('campaigns.index');
+// ----------------------------------------------------------------------------------
+
 // Rute untuk menampilkan detail kampanye kepada publik
 // Menggunakan slug, contoh: /campaigns/bantu-sekolah-anak
 Route::get('/campaigns/{campaign}', [HomeController::class, 'show'])->name('campaigns.show');
@@ -30,9 +35,6 @@ Route::get('/donations/{donation}/confirmation', [DonationController::class, 'co
 Route::get('/donations/{donation}/payment', [DonationController::class, 'payment'])->name('donations.payment');
 
 
-// =================================================================================
-// == PERBAIKAN HANYA DI SINI: Mengubah nama parameter agar tidak bentrok dengan route show ==
-// =================================================================================
 // Form di `show.blade.php` mengirimkan ID kampanye, bukan slug.
 // Mengubah nama parameter `campaign` menjadi `commentable` TIDAK mengubah cara kerjanya,
 // tapi membuat Laravel tidak bingung dan tidak mencoba menggunakan `slug` untuk route ini.

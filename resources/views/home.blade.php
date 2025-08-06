@@ -42,22 +42,29 @@
         --blur-backdrop: blur(16px);
     }
 
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body {
         background: linear-gradient(135deg, var(--slate-50) 0%, var(--emerald-50) 100%);
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
         line-height: 1.6;
+        color: var(--slate-700);
     }
 
-    .donator-count { 
-        display: flex; 
-        align-items: center; 
-        gap: 8px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Container */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
     }
-    
-    /* Enhanced Hero Section */
+
+    /* Hero Section */
     .hero-section {
-        padding: 5rem 0 6rem 0;
+        padding: 4rem 0 5rem 0;
         background: linear-gradient(135deg, var(--emerald-50) 0%, var(--teal-50) 50%, var(--slate-50) 100%);
         position: relative;
         overflow: hidden;
@@ -70,32 +77,30 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 70% 80%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
+        background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 80%, rgba(20, 184, 166, 0.08) 0%, transparent 50%);
         pointer-events: none;
     }
     
-    /* FIXED Enhanced Slider Container */
+    /* Slider Container */
     .slider-container {
         position: relative;
         margin: 0 auto;
         max-width: 1200px;
         overflow: hidden;
-        border-radius: 2rem;
-        box-shadow: var(--shadow-2xl);
+        border-radius: 1.5rem;
+        box-shadow: var(--shadow-xl);
         background: var(--gradient-emerald);
-        border: 3px solid rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.2);
         backdrop-filter: var(--blur-backdrop);
-        -webkit-backdrop-filter: var(--blur-backdrop);
     }
 
     .slider-wrapper {
         position: relative;
-        height: 520px;
+        height: 480px;
         overflow: hidden;
     }
 
-    /* FIXED - Perbaikan utama pada slide CSS */
     .slide {
         position: absolute;
         top: 0;
@@ -103,12 +108,12 @@
         width: 100%;
         height: 100%;
         color: var(--white);
-        padding: 4rem 3rem;
+        padding: 3rem 2rem;
         text-align: center;
         opacity: 0;
         visibility: hidden;
         transform: translateX(100%) scale(0.95);
-        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -129,18 +134,6 @@
         z-index: 2;
     }
 
-    .slide::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-        z-index: 3;
-    }
-
-    /* FIXED - Slide active state */
     .slide.active {
         opacity: 1;
         visibility: visible;
@@ -148,7 +141,6 @@
         z-index: 5;
     }
 
-    /* FIXED - Slide transition states */
     .slide.prev {
         opacity: 0;
         visibility: hidden;
@@ -164,15 +156,14 @@
     }
 
     .slide-content {
-        max-width: 800px;
+        max-width: 700px;
         margin: 0 auto;
         position: relative;
         z-index: 10;
-        animation: slideContentIn 1s ease-out;
     }
 
     .slide h3 {
-        font-size: 3.5rem;
+        font-size: 3rem;
         font-weight: 800;
         margin-bottom: 1.5rem;
         text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -184,8 +175,8 @@
     }
 
     .slide p {
-        font-size: 1.4rem;
-        margin-bottom: 2.5rem;
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
         opacity: 0.95;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         line-height: 1.6;
@@ -198,161 +189,112 @@
         gap: 0.75rem;
         background: rgba(255, 255, 255, 0.95);
         color: var(--emerald-700);
-        padding: 1.5rem 3rem;
-        border-radius: 2rem;
+        padding: 1.25rem 2.5rem;
+        border-radius: 1.5rem;
         text-decoration: none;
         font-weight: 600;
-        font-size: 1.1rem;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: var(--shadow-xl);
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: var(--shadow-lg);
         backdrop-filter: blur(12px);
         border: 2px solid rgba(255, 255, 255, 0.3);
         position: relative;
         overflow: hidden;
     }
 
-    .slide-btn::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
-        transition: all 0.4s ease;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .slide-btn:hover::before {
-        width: 400px;
-        height: 400px;
-    }
-
     .slide-btn:hover {
-        transform: translateY(-4px) scale(1.05);
-        box-shadow: var(--shadow-2xl);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: var(--shadow-xl);
         background: var(--white);
         color: var(--emerald-800);
-        border-color: rgba(255, 255, 255, 0.5);
     }
 
-    .slide-btn svg {
-        transition: transform 0.3s ease;
-    }
-
-    .slide-btn:hover svg {
-        transform: translateX(4px);
-    }
-
-    /* Enhanced Slider Navigation */
+    /* Slider Navigation */
     .slider-nav {
         position: absolute;
-        bottom: 2.5rem;
+        bottom: 2rem;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: 1rem;
+        gap: 0.75rem;
         z-index: 15;
     }
 
     .nav-dot {
-        width: 16px;
-        height: 16px;
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.4);
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 3px solid rgba(255, 255, 255, 0.6);
-        position: relative;
-        backdrop-filter: blur(4px);
-    }
-
-    .nav-dot::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: var(--white);
-        border-radius: 50%;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-
-    .nav-dot.active::before {
-        width: 100%;
-        height: 100%;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid rgba(255, 255, 255, 0.6);
     }
 
     .nav-dot.active {
         background-color: var(--white);
-        transform: scale(1.4);
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
-        border-color: rgba(255, 255, 255, 0.8);
+        transform: scale(1.3);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
     }
 
-    /* Enhanced Slider Arrows */
+    /* Slider Arrows */
     .slider-arrow {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         background: rgba(255, 255, 255, 0.2);
         color: var(--white);
-        border: 3px solid rgba(255, 255, 255, 0.4);
-        width: 70px;
-        height: 70px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         z-index: 15;
         font-weight: bold;
         backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
     }
 
     .slider-arrow:hover {
         background: rgba(255, 255, 255, 0.3);
         transform: translateY(-50%) scale(1.1);
         border-color: rgba(255, 255, 255, 0.6);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
 
     .slider-arrow.prev {
-        left: 2rem;
+        left: 1.5rem;
     }
 
     .slider-arrow.next {
-        right: 2rem;
+        right: 1.5rem;
     }
     
-    /* Enhanced Section Styles */
+    /* Section Styles */
     .section {
-        padding: 4rem 0;
+        padding: 3rem 0;
         position: relative;
     }
     
     .section-kampanye {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: var(--blur-backdrop);
-        -webkit-backdrop-filter: var(--blur-backdrop);
-        border-radius: 2rem;
-        box-shadow: var(--shadow-xl);
+        border-radius: 1.5rem;
+        box-shadow: var(--shadow-lg);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        margin: 2rem 0;
+        margin: 2rem 1rem;
+        padding: 2.5rem;
     }
     
     .section-tentang {
         background: linear-gradient(135deg, var(--emerald-50), var(--teal-50));
-        border-radius: 2rem;
+        border-radius: 1.5rem;
         position: relative;
         overflow: hidden;
+        padding: 3rem 2.5rem;
+        margin: 2rem 1rem;
     }
 
     .section-tentang::before {
@@ -362,33 +304,19 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        background: radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
         pointer-events: none;
     }
     
-    /* Enhanced Search and Filter - REMOVED CATEGORY FILTER */
+    /* Search and Filter */
     .search-filter-section {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: var(--blur-backdrop);
-        -webkit-backdrop-filter: var(--blur-backdrop);
-        border-radius: 1.5rem;
-        padding: 2.5rem;
+        border-radius: 1.25rem;
+        padding: 2rem;
         margin-bottom: 2rem;
         box-shadow: var(--shadow-lg);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .search-filter-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, transparent, rgba(16, 185, 129, 0.02), transparent);
-        pointer-events: none;
     }
     
     .search-filter-container {
@@ -396,23 +324,21 @@
         gap: 1.5rem;
         align-items: center;
         flex-wrap: wrap;
-        position: relative;
-        z-index: 2;
     }
     
     .search-box {
         flex: 1;
-        min-width: 320px;
+        min-width: 300px;
         position: relative;
     }
     
     .search-input {
         width: 100%;
-        padding: 1.25rem 1.25rem 1.25rem 3.5rem;
+        padding: 1rem 1rem 1rem 3rem;
         border: 2px solid var(--emerald-200);
-        border-radius: 2rem;
+        border-radius: 1.5rem;
         font-size: 1rem;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: rgba(248, 250, 252, 0.8);
         backdrop-filter: blur(8px);
         font-weight: 500;
@@ -422,8 +348,8 @@
         outline: none;
         border-color: var(--emerald-500);
         background: var(--white);
-        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
-        transform: translateY(-2px);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        transform: translateY(-1px);
     }
 
     .search-input::placeholder {
@@ -433,7 +359,7 @@
     
     .search-icon {
         position: absolute;
-        left: 1.25rem;
+        left: 1rem;
         top: 50%;
         transform: translateY(-50%);
         color: var(--emerald-500);
@@ -460,15 +386,15 @@
     }
     
     .filter-select {
-        padding: 1rem 1.5rem;
+        padding: 1rem 1.25rem;
         border: 2px solid var(--emerald-200);
-        border-radius: 1.5rem;
+        border-radius: 1.25rem;
         background: rgba(248, 250, 252, 0.8);
         color: var(--slate-700);
         font-weight: 500;
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        min-width: 140px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 130px;
         backdrop-filter: blur(8px);
     }
     
@@ -476,8 +402,8 @@
         outline: none;
         border-color: var(--emerald-500);
         background: var(--white);
-        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
-        transform: translateY(-2px);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        transform: translateY(-1px);
     }
     
     .filter-select:hover {
@@ -486,88 +412,22 @@
         transform: translateY(-1px);
     }
     
-    /* Enhanced Stats Grid */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 2rem;
-        margin: 3rem 0;
-    }
-    
-    .stat-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: var(--blur-backdrop);
-        -webkit-backdrop-filter: var(--blur-backdrop);
-        padding: 2.5rem 2rem;
-        border-radius: 1.5rem;
-        text-align: center;
-        box-shadow: var(--shadow-lg);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--gradient-emerald-light);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .stat-card:hover::before {
-        opacity: 0.05;
-    }
-    
-    .stat-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: var(--shadow-2xl);
-    }
-    
-    .stat-number {
-        font-size: 3rem;
-        font-weight: 800;
-        color: var(--emerald-600);
-        display: block;
-        margin-bottom: 0.75rem;
-        position: relative;
-        z-index: 2;
-        background: var(--gradient-emerald);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .stat-label {
-        color: var(--slate-600);
-        font-weight: 500;
-        font-size: 1.1rem;
-        position: relative;
-        z-index: 2;
-    }
-    
-    /* Enhanced Features Grid */
+    /* Features Grid */
     .features-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2.5rem;
-        margin: 3rem 0;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 2.5rem 0;
     }
     
     .feature-card {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: var(--blur-backdrop);
-        -webkit-backdrop-filter: var(--blur-backdrop);
-        padding: 2.5rem;
-        border-radius: 1.5rem;
+        padding: 2rem;
+        border-radius: 1.25rem;
         box-shadow: var(--shadow-lg);
         text-align: center;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         position: relative;
         overflow: hidden;
@@ -590,22 +450,22 @@
     }
     
     .feature-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: var(--shadow-2xl);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: var(--shadow-xl);
     }
     
     .feature-icon {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         background: var(--gradient-emerald);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 2rem auto;
+        margin: 0 auto 1.5rem auto;
         color: var(--white);
         box-shadow: var(--shadow-lg);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         z-index: 2;
     }
@@ -616,9 +476,9 @@
     }
     
     .feature-title {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         font-weight: 700;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
         color: var(--slate-800);
         position: relative;
         z-index: 2;
@@ -627,31 +487,30 @@
     .feature-description {
         color: var(--slate-600);
         line-height: 1.6;
-        font-size: 1.05rem;
+        font-size: 1rem;
         position: relative;
         z-index: 2;
     }
 
-    /* Enhanced Campaign Grid */
+    /* Campaign Grid */
     .campaign-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.5rem;
         margin: 2rem 0;
     }
 
     .campaign-item {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: var(--blur-backdrop);
-        -webkit-backdrop-filter: var(--blur-backdrop);
-        border-radius: 1.5rem;
+        border-radius: 1.25rem;
         overflow: hidden;
         box-shadow: var(--shadow-lg);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         position: relative;
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
 
     .campaign-item.visible {
@@ -681,8 +540,8 @@
     }
 
     .campaign-item:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: var(--shadow-2xl);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: var(--shadow-xl);
     }
 
     .campaign-item a {
@@ -695,9 +554,9 @@
 
     .campaign-item img {
         width: 100%;
-        height: 220px;
+        height: 200px;
         object-fit: cover;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .campaign-item:hover img {
@@ -706,13 +565,13 @@
     }
 
     .campaign-content {
-        padding: 2rem;
+        padding: 1.5rem;
         position: relative;
         z-index: 2;
     }
 
     .campaign-title {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--slate-800);
@@ -724,60 +583,37 @@
         color: var(--emerald-700);
     }
 
-    /* Enhanced Progress Bar */
+    /* Progress Bar */
     .progress-bar-container {
         width: 100%;
-        height: 8px;
+        height: 6px;
         background-color: var(--emerald-100);
-        border-radius: 4px;
+        border-radius: 3px;
         overflow: hidden;
-        margin: 1.25rem 0;
+        margin: 1rem 0;
         position: relative;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
     .progress-bar {
         height: 100%;
         background: var(--gradient-emerald);
-        border-radius: 4px;
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 3px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
-        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-    }
-
-    .progress-bar::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        animation: shimmer 2s infinite;
-    }
-
-    .progress-bar::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100%;
-        height: 2px;
-        background: rgba(255, 255, 255, 0.6);
-        transform: translate(-50%, -50%);
-        border-radius: 1px;
+        box-shadow: 0 1px 5px rgba(16, 185, 129, 0.3);
     }
 
     .progress-percentage-text {
         position: absolute;
-        top: -25px;
+        top: -20px;
         right: 0;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         font-weight: 700;
         color: var(--slate-700);
         background: rgba(255, 255, 255, 0.9);
-        padding: 0.25rem 0.75rem;
-        border-radius: 1rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 0.8rem;
         backdrop-filter: blur(4px);
     }
 
@@ -785,8 +621,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 1.25rem;
-        font-size: 0.95rem;
+        margin-top: 1rem;
+        font-size: 0.9rem;
         position: relative;
         z-index: 2;
     }
@@ -796,9 +632,16 @@
         font-weight: 700;
     }
 
-    /* Enhanced Typography */
+    .donator-count { 
+        display: flex; 
+        align-items: center; 
+        gap: 6px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Typography */
     .page-title {
-        font-size: 3.5rem;
+        font-size: 3rem;
         font-weight: 800;
         text-align: center;
         margin-bottom: 1rem;
@@ -814,21 +657,21 @@
     .page-title::after {
         content: '';
         position: absolute;
-        bottom: -15px;
+        bottom: -10px;
         left: 50%;
         transform: translateX(-50%);
-        width: 120px;
-        height: 4px;
+        width: 100px;
+        height: 3px;
         background: var(--gradient-emerald);
         border-radius: 2px;
     }
 
     .page-subtitle {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         text-align: center;
         color: var(--slate-600);
-        margin-bottom: 3rem;
-        max-width: 700px;
+        margin-bottom: 2.5rem;
+        max-width: 600px;
         margin-left: auto;
         margin-right: auto;
         line-height: 1.5;
@@ -837,33 +680,33 @@
 
     .section-title {
         text-align: center;
-        font-size: 2.75rem;
+        font-size: 2.5rem;
         font-weight: 800;
         color: var(--slate-800);
-        margin-bottom: 3rem;
+        margin-bottom: 2.5rem;
         position: relative;
     }
 
     .section-title::after {
         content: '';
         position: absolute;
-        bottom: -10px;
+        bottom: -8px;
         left: 50%;
         transform: translateX(-50%);
-        width: 80px;
+        width: 70px;
         height: 3px;
         background: var(--gradient-emerald);
         border-radius: 2px;
     }
 
-    /* SIMPLIFIED CONTACT SECTION - EMAIL ONLY */
+    /* Contact Section */
     .contact-section {
         background: linear-gradient(135deg, var(--emerald-600) 0%, var(--teal-600) 50%, var(--emerald-700) 100%);
-        border-radius: 2rem;
+        border-radius: 1.5rem;
         position: relative;
         overflow: hidden;
-        padding: 3rem 2rem;
-        margin: 3rem 0;
+        padding: 3rem 2.5rem;
+        margin: 2.5rem 1rem;
         text-align: center;
     }
 
@@ -880,7 +723,7 @@
     }
 
     .contact-content {
-        max-width: 600px;
+        max-width: 500px;
         margin: 0 auto;
         position: relative;
         z-index: 2;
@@ -888,57 +731,39 @@
 
     .contact-section .section-title {
         color: var(--white);
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         margin-bottom: 1rem;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .contact-section .section-title::after {
         background: rgba(255, 255, 255, 0.8);
-        width: 80px;
+        width: 70px;
     }
 
     .contact-section .page-subtitle {
         color: rgba(255, 255, 255, 0.95);
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         line-height: 1.6;
     }
 
-    /* Enhanced Button */
+    /* Button */
     .btn {
         display: inline-flex;
         align-items: center;
         gap: 0.75rem;
-        padding: 1.25rem 2.5rem;
-        border-radius: 2rem;
+        padding: 1rem 2rem;
+        border-radius: 1.5rem;
         text-decoration: none;
         font-weight: 600;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
-        font-size: 1.05rem;
+        font-size: 1rem;
         border: none;
         cursor: pointer;
-    }
-
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-        transition: all 0.4s ease;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .btn:hover::before {
-        width: 400px;
-        height: 400px;
     }
 
     .btn-contact {
@@ -950,93 +775,171 @@
     }
 
     .btn-contact:hover {
-        transform: translateY(-4px) scale(1.05);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
         background: rgba(255, 255, 255, 0.25);
         border-color: rgba(255, 255, 255, 0.4);
-    }
-
-    .btn-contact svg {
-        transition: transform 0.3s ease;
-    }
-
-    .btn-contact:hover svg {
-        transform: translateX(3px);
     }
 
     /* Load More Button */
     .load-more-container {
         text-align: center;
-        margin: 3rem 0;
+        margin: 2.5rem 0;
         position: relative;
     }
 
     .btn-load-more {
         background: var(--gradient-emerald);
         color: var(--white);
-        padding: 1.25rem 3rem;
-        border-radius: 2rem;
+        padding: 1rem 2.5rem;
+        border-radius: 1.5rem;
         border: none;
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: var(--shadow-lg);
         position: relative;
         overflow: hidden;
         backdrop-filter: blur(8px);
     }
 
-    .btn-load-more::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-        transition: all 0.4s ease;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .btn-load-more:hover::before {
-        width: 400px;
-        height: 400px;
-    }
-
     .btn-load-more:hover {
-        transform: translateY(-4px) scale(1.05);
-        box-shadow: var(--shadow-2xl);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: var(--shadow-xl);
     }
 
-    .btn-load-more:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 1.5rem;
+        }
+
+        .hero-section {
+            padding: 3rem 0 4rem 0;
+        }
+
+        .slider-wrapper {
+            height: 400px;
+        }
+
+        .slide h3 {
+            font-size: 2.2rem;
+        }
+
+        .slide p {
+            font-size: 1.1rem;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .search-filter-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-box {
+            min-width: auto;
+        }
+
+        .filter-container {
+            justify-content: center;
+        }
+
+        .campaign-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .slider-arrow {
+            width: 50px;
+            height: 50px;
+            font-size: 1.1rem;
+        }
+
+        .slider-arrow.prev {
+            left: 1rem;
+        }
+
+        .slider-arrow.next {
+            right: 1rem;
+        }
+
+        .section-kampanye,
+        .section-tentang,
+        .contact-section {
+            margin: 2rem 0.5rem;
+        }
     }
 
-    .btn-load-more:disabled:hover {
-        transform: none;
-        box-shadow: var(--shadow-lg);
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 1rem;
+        }
+
+        .slide {
+            padding: 2rem 1rem;
+        }
+
+        .slide h3 {
+            font-size: 1.8rem;
+        }
+
+        .slide p {
+            font-size: 1rem;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+        }
+
+        .section {
+            padding: 2rem 0;
+        }
+
+        .section-kampanye,
+        .section-tentang {
+            padding: 1.5rem;
+            margin: 1.5rem 0.25rem;
+        }
+
+        .contact-section {
+            padding: 2rem 1.5rem;
+            margin: 1.5rem 0.25rem;
+        }
+
+        .search-filter-section {
+            padding: 1.5rem;
+        }
+
+        .stat-card,
+        .feature-card {
+            padding: 1.5rem;
+        }
+
+        .campaign-content {
+            padding: 1.25rem;
+        }
     }
 
-    .btn-load-more svg {
-        transition: transform 0.3s ease;
-    }
-
-    .btn-load-more:hover svg {
-        transform: translateY(2px);
-    }
-
-    .content-wrapper {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1rem;
-        position: relative;
-    }
-
-    /* Animations */
+    /* Animation Keyframes */
     @keyframes slideContentIn {
         from {
             opacity: 0;
@@ -1049,565 +952,384 @@
     }
 
     @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
+        0% {
+            transform: translateX(-100%);
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        100% {
+            transform: translateX(100%);
         }
     }
 
-    /* Scroll Animations */
-    .fade-in-up {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.6s ease-out;
+    /* Utility Classes */
+    .text-center {
+        text-align: center;
     }
 
-    .fade-in-up.visible {
-        opacity: 1;
-        transform: translateY(0);
+    .mb-4 {
+        margin-bottom: 1rem;
     }
 
-    /* Enhanced Responsive Design */
-    @media (max-width: 768px) {
-        .hero-section {
-            padding: 3rem 0 4rem 0;
-        }
-        
-        .page-title {
-            font-size: 2.5rem;
-        }
+    .mb-6 {
+        margin-bottom: 1.5rem;
+    }
 
-        .page-subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
+    .mt-4 {
+        margin-top: 1rem;
+    }
 
-        .section-title {
-            font-size: 2.25rem;
-        }
+    .mt-6 {
+        margin-top: 1.5rem;
+    }
 
-        .slide h3 {
-            font-size: 2.5rem;
-        }
+    .hidden {
+        display: none;
+    }
 
-        .slide p {
-            font-size: 1.2rem;
-        }
-
-        .slider-wrapper {
-            height: 450px;
-        }
-        
-        .slider-container {
-            max-width: 100%;
-            margin: 0 1rem;
-        }
-
-        .stats-grid {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .features-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .campaign-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .slider-arrow {
-            width: 60px;
-            height: 60px;
-            font-size: 1.3rem;
-        }
-
-        .slider-arrow.prev {
-            left: 1rem;
-        }
-
-        .slider-arrow.next {
-            right: 1rem;
-        }
-        
-        .search-filter-container {
-            flex-direction: column;
-            align-items: stretch;
-        }
-        
-        .search-box {
-            min-width: auto;
-        }
-        
-        .filter-container {
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-        }
-
-        .btn-load-more {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-        }
-
-        /* Mobile Contact Section */
-        .contact-section {
-            padding: 2.5rem 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .contact-section .section-title {
-            font-size: 2rem;
-        }
-
-        .btn-contact {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-        }
+    .visible {
+        display: block;
     }
 </style>
 
-{{-- Enhanced Hero Section with 5 Customizable Slides --}}
-<div class="hero-section">
-    <div class="content-wrapper">
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="page-title">Platform Crowdfunding Terpercaya</h1>
+        <p class="page-subtitle">Wujudkan impian Anda bersama komunitas yang peduli. Mulai kampanye atau dukung proyek yang menginspirasi.</p>
+        
+        <!-- Slider -->
         <div class="slider-container">
             <div class="slider-wrapper">
-                {{-- Slide 1: Pesantren Al-Hidayah --}}
-                <div class="slide active" style="background-image: url('{{ asset('images/slider/slide-1.jpg') }}');">
+                @php
+                $pondokPesantren = [
+                    [
+                        'nama' => 'Pondok Pesantren Al-Hikmah',
+                        'deskripsi' => 'Pondok pesantren modern yang menggabungkan pendidikan agama dan umum dengan fasilitas lengkap untuk santri putra dan putri.',
+                        'link' => '/pondok/al-hikmah'
+                    ],
+                    [
+                        'nama' => 'Pondok Pesantren Darul Ulum',
+                        'deskripsi' => 'Lembaga pendidikan Islam terpadu yang fokus pada pembentukan karakter dan keilmuan dengan tradisi salaf yang kuat.',
+                        'link' => '/pondok/darul-ulum'
+                    ],
+                    [
+                        'nama' => 'Pondok Pesantren Nurul Huda',
+                        'deskripsi' => 'Pesantren yang mengutamakan pendidikan Al-Quran dan Hadits dengan metode pembelajaran yang inovatif dan berkarakter.',
+                        'link' => '/pondok/nurul-huda'
+                    ],
+                    [
+                        'nama' => 'Pondok Pesantren Baitul Hikmah',
+                        'deskripsi' => 'Institusi pendidikan Islam yang menyelenggarakan program tahfidz Al-Quran dan pendidikan formal terintegrasi.',
+                        'link' => '/pondok/baitul-hikmah'
+                    ],
+                    [
+                        'nama' => 'Pondok Pesantren Raudhatul Jannah',
+                        'deskripsi' => 'Pesantren putri yang mengkhususkan diri dalam pendidikan agama, bahasa Arab, dan keterampilan hidup untuk muslimah.',
+                        'link' => '/pondok/raudhatul-jannah'
+                    ]
+                ];
+                @endphp
+                
+                @foreach($pondokPesantren as $index => $pondok)
+                <div class="slide {{ $index === 0 ? 'active' : '' }}">
                     <div class="slide-content">
-                        <h3>Pesantren Al-Hidayah</h3>
-                        <p>Mendidik generasi Qur'ani dengan fasilitas modern dan pembelajaran yang komprehensif. Bergabunglah dalam misi mulia membangun masa depan yang lebih baik.</p>
-                        <a href="#" class="slide-btn">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        <h3>{{ $pondok['nama'] }}</h3>
+                        <p>{{ $pondok['deskripsi'] }}</p>
+                        <a href="{{ $pondok['link'] }}" class="slide-btn">
+                            Lihat Detail Pondok
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"/>
                             </svg>
-                            Kunjungi Website
                         </a>
                     </div>
+                </div>
+                @endforeach
+            </div>
+            
+            <!-- Navigation Dots -->
+            <div class="slider-nav">
+                @foreach($pondokPesantren as $index => $pondok)
+                <div class="nav-dot {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></div>
+                @endforeach
+            </div>
+            
+            <!-- Navigation Arrows -->
+            <div class="slider-arrow prev">‹</div>
+            <div class="slider-arrow next">›</div>
+        </div>
+    </div>
+</section>
+
+<!-- Kampanye Section -->
+<section class="section section-kampanye">
+    <div class="container">
+        <h2 class="section-title">Kampanye Terbaru</h2>
+        
+        <!-- Search and Filter -->
+        <div class="search-filter-section">
+            <div class="search-filter-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Cari kampanye...">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
                 </div>
                 
-                {{-- Slide 2: Pesantren Darul Ulum --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/slide-2.jpg') }}');">
-                    <div class="slide-content">
-                        <h3>Pesantren Darul Ulum</h3>
-                        <p>Pusat pendidikan Islam terpadu yang mengombinasikan ilmu agama dan sains modern. Mari bersama membangun generasi yang berakhlak mulia dan berprestasi.</p>
-                        <a href="#" class="slide-btn">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Kunjungi Website
-                        </a>
-                    </div>
+                <div class="filter-container">
+                    <span class="filter-label">Urutkan:</span>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="newest">Terbaru</option>
+                        <option value="oldest">Terlama</option>
+                        <option value="target_asc">Target Terendah</option>
+                        <option value="target_desc">Target Tertinggi</option>
+                        <option value="progress_desc">Progress Tertinggi</option>
+                    </select>
                 </div>
-
-                {{-- Slide 3: Pesantren Nurul Huda --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/slide-3.jpg') }}');">
-                    <div class="slide-content">
-                        <h3>Pesantren Nurul Huda</h3>
-                        <p>Lembaga pendidikan Islam yang fokus pada pembentukan karakter dan pengembangan potensi santri. Wujudkan cita-cita mulia bersama kami.</p>
-                        <a href="#" class="slide-btn">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Kunjungi Website
-                        </a>
-                    </div>
-                </div>
-
-                {{-- Slide 4: Pesantren Baitul Hikmah --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/slide-4.jpg') }}');">
-                    <div class="slide-content">
-                        <h3>Pesantren Baitul Hikmah</h3>
-                        <p>Rumah kebijaksanaan yang menghadirkan pendidikan holistik untuk membentuk insan kamil. Bergabunglah dalam perjalanan menuju keunggulan.</p>
-                        <a href="#" class="slide-btn">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Kunjungi Website
-                        </a>
-                    </div>
-                </div>
-
-                {{-- Slide 5: Pesantren Ar-Rahman --}}
-                <div class="slide" style="background-image: url('{{ asset('images/slider/slide-5.jpg') }}');">
-                    <div class="slide-content">
-                        <h3>Pesantren Ar-Rahman</h3>
-                        <p>Pusat pembelajaran yang mengedepankan nilai-nilai kasih sayang dan keunggulan akademik. Mari bersama membangun peradaban yang gemilang.</p>
-                        <a href="#" class="slide-btn">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                            Kunjungi Website
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <span class="nav-dot active" data-slide="0"></span>
-                <span class="nav-dot" data-slide="1"></span>
-                <span class="nav-dot" data-slide="2"></span>
-                <span class="nav-dot" data-slide="3"></span>
-                <span class="nav-dot" data-slide="4"></span>
-            </div>
-            <div class="slider-arrow prev">&lt;</div>
-            <div class="slider-arrow next">&gt;</div>
-        </div>
-    </div>
-</div>
-
-{{-- Enhanced Search and Filter Section - REMOVED CATEGORY FILTER --}}
-<div class="section content-wrapper">
-    <div class="search-filter-section">
-        <div class="search-filter-container">
-            <div class="search-box">
-                <input type="text" placeholder="Cari kampanye..." class="search-input" id="campaignSearch">
-                <svg class="search-icon" width="22" height="22" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
-                </svg>
-            </div>
-            <div class="filter-container">
-                <span class="filter-label">Urutkan:</span>
-                <select class="filter-select" id="sortFilter">
-                    <option value="newest">Terbaru</option>
-                    <option value="popular">Terpopuler</option>
-                    <option value="target">Target Terbesar</option>
-                </select>
             </div>
         </div>
-    </div>
-</div>
-
-{{-- Enhanced Main Content Section --}}
-<div class="section content-wrapper">
-    <h2 class="section-title">Kampanye Terbaru</h2>
-    <div class="campaign-grid" id="campaignGrid">
-        @foreach($campaigns as $index => $campaign)
-        <div class="campaign-item fade-in-up @if($index >= 6) hidden @endif" data-index="{{ $index }}">
-            <a href="{{ route('campaigns.show', $campaign->id) }}">
-                <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
-                <div class="campaign-content">
-                    <h3 class="campaign-title">{{ $campaign->title }}</h3>
-                    <p class="text-muted">{{ Str::limit($campaign->description, 100) }}</p>
+        
+        <!-- Campaign Grid -->
+        <div class="campaign-grid" id="campaignGrid">
+            @foreach($campaigns as $campaign)
+            <div class="campaign-item visible" data-title="{{ strtolower($campaign->title) }}" data-created="{{ $campaign->created_at->timestamp }}" data-target="{{ $campaign->target_amount }}" data-progress="{{ $campaign->current_amount / $campaign->target_amount * 100 }}">
+                <a href="{{ route('campaigns.show', $campaign) }}">
+                    @if($campaign->image)
+                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
+                    @else
+                        <img src="https://via.placeholder.com/400x200/10b981/ffffff?text=Kampanye" alt="{{ $campaign->title }}">
+                    @endif
                     
-                    @php
-                        $percentage = $campaign->target_amount > 0 ? round(($campaign->collected_amount / $campaign->target_amount) * 100) : 0;
-                    @endphp
-                    <div class="progress-bar-container">
-                        <div class="progress-percentage-text">{{ $percentage }}%</div>
-                        <div class="progress-bar" style="width: {{ $percentage }}%;"></div>
+                    <div class="campaign-content">
+                        <h3 class="campaign-title">{{ $campaign->title }}</h3>
+                        
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: {{ min(($campaign->current_amount / $campaign->target_amount) * 100, 100) }}%"></div>
+                            <div class="progress-percentage-text">{{ number_format(min(($campaign->current_amount / $campaign->target_amount) * 100, 100), 1) }}%</div>
+                        </div>
+                        
+                        <div class="campaign-footer">
+                            <div>
+                                <strong>Rp {{ number_format($campaign->current_amount, 0, ',', '.') }}</strong>
+                                <br>
+                                <small>dari Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</small>
+                            </div>
+                            <div class="donator-count">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                                {{ $campaign->donations_count ?? 0 }} donatur
+                            </div>
+                        </div>
                     </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="load-more-container">
+            <button class="btn-load-more" id="loadMoreBtn" style="display: none;">
+                Muat Lebih Banyak
+            </button>
+        </div>
+    </div>
+</section>
 
-                    <div class="campaign-footer">
-                        <div>Terkumpul: <strong>Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</strong></div>
-                        <div>Target: <span>Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</span></div>
-                    </div>
+<!-- Tentang Section -->
+<section class="section section-tentang">
+    <div class="container">
+        <h2 class="section-title">Mengapa Memilih Platform Kami?</h2>
+        
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
                 </div>
-            </a>
-        </div>
-        @endforeach
-    </div>
-
-    {{-- Load More Button --}}
-    @if(count($campaigns) > 6)
-    <div class="load-more-container">
-        <button class="btn-load-more" id="loadMoreBtn">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-            Lihat Lebih Banyak
-        </button>
-    </div>
-    @endif
-</div>
-
-{{-- Enhanced About Us Section --}}
-<div class="section content-wrapper">
-    <div class="section-tentang p-8 text-center">
-        <h2 class="section-title">Tentang Kami</h2>
-        <p class="page-subtitle">Platform crowdfunding terpercaya untuk membantu mewujudkan impian dan memberikan dampak positif bagi masyarakat. Bergabunglah bersama kami!</p>
-        <div class="stats-grid">
-            <div class="stat-card fade-in-up">
-                <span class="stat-number">100+</span>
-                <span class="stat-label">Kampanye Berhasil</span>
+                <h3 class="feature-title">Keamanan Terjamin</h3>
+                <p class="feature-description">Sistem keamanan berlapis dan enkripsi data untuk melindungi setiap transaksi dan informasi pribadi Anda.</p>
             </div>
-            <div class="stat-card fade-in-up">
-                <span class="stat-number">5000+</span>
-                <span class="stat-label">Donatur Setia</span>
-            </div>
-            <div class="stat-card fade-in-up">
-                <span class="stat-number">Rp 10M+</span>
-                <span class="stat-label">Dana Terkumpul</span>
-            </div>
-            <div class="stat-card fade-in-up">
-                <span class="stat-number">99%</span>
-                <span class="stat-label">Kepuasan Pengguna</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Enhanced Features Section --}}
-<div class="section content-wrapper">
-    <h2 class="section-title">Mengapa Memilih Kami?</h2>
-    <div class="features-grid">
-        <div class="feature-card fade-in-up">
-            <div class="feature-icon">
-                <svg width="36" height="36" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-            </div>
-            <h3 class="feature-title">Terpercaya & Aman</h3>
-            <p class="feature-description">Sistem keamanan terdepan untuk melindungi data dan transaksi Anda dengan enkripsi tingkat bank.</p>
-        </div>
-        <div class="feature-card fade-in-up">
-            <div class="feature-icon">
-                <svg width="36" height="36" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
-                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
-                </svg>
-            </div>
-            <h3 class="feature-title">Mudah Digunakan</h3>
-            <p class="feature-description">Antarmuka intuitif dan responsif untuk pengalaman berdonasi yang lancar di semua perangkat.</p>
-        </div>
-        <div class="feature-card fade-in-up">
-            <div class="feature-icon">
-                <svg width="36" height="36" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6z" clip-rule="evenodd"/>
-                </svg>
-            </div>
-            <h3 class="feature-title">Dampak Nyata</h3>
-            <p class="feature-description">Setiap donasi Anda memberikan perubahan positif yang signifikan dan terukur bagi masyarakat.</p>
-        </div>
-    </div>
-</div>
-
-{{-- SIMPLIFIED CONTACT SECTION - EMAIL ONLY --}}
-<div class="section content-wrapper">
-    <div class="contact-section">
-        <div class="contact-content">
-            <h2 class="section-title">Hubungi Kami</h2>
-            <p class="page-subtitle">Punya pertanyaan atau ingin berkolaborasi? Kami siap membantu Anda dengan senang hati!</p>
             
-            <a href="mailto:info@platformpesantren.id" class="btn btn-contact">
-                <svg width="22" height="22" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Komunitas Solid</h3>
+                <p class="feature-description">Bergabung dengan ribuan orang yang peduli dan siap mendukung proyek-proyek bermakna.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                    </svg>
+                </div>
+                <h3 class="feature-title">Transparansi Penuh</h3>
+                <p class="feature-description">Pantau perkembangan kampanye secara real-time dengan laporan yang jelas dan transparan.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-content">
+            <h2 class="section-title">Butuh Bantuan?</h2>
+            <p class="page-subtitle">Tim support kami siap membantu Anda 24/7. Hubungi kami untuk konsultasi gratis.</p>
+            <a href="mailto:support@crowdfunding.com" class="btn btn-contact">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
                 </svg>
-                Kirim Email Sekarang
+                Hubungi Kami
             </a>
         </div>
     </div>
-</div>
+</section>
 
 <script>
-    // FIXED - Enhanced slider functionality for 5 slides
+document.addEventListener('DOMContentLoaded', function() {
+    // Slider functionality
     const slides = document.querySelectorAll('.slide');
     const navDots = document.querySelectorAll('.nav-dot');
-    const prevArrow = document.querySelector('.slider-arrow.prev');
-    const nextArrow = document.querySelector('.slider-arrow.next');
+    const prevBtn = document.querySelector('.slider-arrow.prev');
+    const nextBtn = document.querySelector('.slider-arrow.next');
     let currentSlide = 0;
-    let isTransitioning = false;
+    const totalSlides = slides.length;
 
-    // FIXED - Improved showSlide function
     function showSlide(index) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-
-        // Remove all classes from all slides first
         slides.forEach((slide, i) => {
-            slide.classList.remove('active', 'prev', 'next');
-        });
-
-        // Set the correct classes for each slide
-        slides.forEach((slide, i) => {
+            slide.classList.remove("active", "prev", "next");
             if (i === index) {
-                slide.classList.add('active');
+                slide.classList.add("active");
             } else if (i < index) {
-                slide.classList.add('prev');
+                slide.classList.add("prev");
             } else {
-                slide.classList.add('next');
+                slide.classList.add("next");
             }
         });
 
-        // Update navigation dots
         navDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
+            dot.classList.toggle("active", i === index);
         });
-
-        currentSlide = index;
-        
-        // Allow next transition after animation completes
-        setTimeout(() => {
-            isTransitioning = false;
-        }, 800);
     }
 
     function nextSlide() {
-        if (isTransitioning) return;
-        const nextIndex = (currentSlide + 1) % slides.length;
-        showSlide(nextIndex);
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
     }
 
     function prevSlide() {
-        if (isTransitioning) return;
-        const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(prevIndex);
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
     }
 
-    // FIXED - Event listeners for navigation dots
+    // Event listeners
+    nextBtn?.addEventListener("click", nextSlide);
+    prevBtn?.addEventListener("click", prevSlide);
+
     navDots.forEach((dot, index) => {
-        dot.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!isTransitioning) {
-                showSlide(index);
-            }
+        dot.addEventListener("click", () => {
+            currentSlide = index;
+            showSlide(currentSlide);
         });
     });
 
-    // Event listeners for arrows
-    prevArrow.addEventListener('click', (e) => {
-        e.preventDefault();
-        prevSlide();
-    });
+    // Auto-play slider
+    setInterval(nextSlide, 5000);
 
-    nextArrow.addEventListener('click', (e) => {
-        e.preventDefault();
-        nextSlide();
-    });
-
-    // Auto-slide every 6 seconds with pause on hover
-    let autoSlideInterval = setInterval(nextSlide, 6000);
-
-    const sliderContainer = document.querySelector('.slider-container');
-    sliderContainer.addEventListener('mouseenter', () => {
-        clearInterval(autoSlideInterval);
-    });
-
-    sliderContainer.addEventListener('mouseleave', () => {
-        autoSlideInterval = setInterval(nextSlide, 6000);
-    });
-
-    // Campaign pagination functionality
-    const campaignItems = document.querySelectorAll('.campaign-item');
+    // Search and filter functionality
+    const searchInput = document.getElementById('searchInput');
+    const sortFilter = document.getElementById('sortFilter');
+    const campaignGrid = document.getElementById('campaignGrid');
+    const campaignItems = Array.from(document.querySelectorAll('.campaign-item'));
     const loadMoreBtn = document.getElementById('loadMoreBtn');
-    let currentlyShown = 6;
+    
+    let visibleCount = 6;
     const itemsPerLoad = 6;
 
-    // Initialize campaign display
-    function initializeCampaigns() {
-        campaignItems.forEach((item, index) => {
-            if (index < currentlyShown) {
+    function filterAndSortCampaigns() {
+        const searchTerm = searchInput?.value.toLowerCase() || '';
+        const sortValue = sortFilter?.value || 'newest';
+
+        // Filter campaigns
+        let filteredItems = campaignItems.filter(item => {
+            const title = item.dataset.title || '';
+            return title.includes(searchTerm);
+        });
+
+        // Sort campaigns
+        filteredItems.sort((a, b) => {
+            switch (sortValue) {
+                case 'oldest':
+                    return parseInt(a.dataset.created) - parseInt(b.dataset.created);
+                case 'target_asc':
+                    return parseInt(a.dataset.target) - parseInt(b.dataset.target);
+                case 'target_desc':
+                    return parseInt(b.dataset.target) - parseInt(a.dataset.target);
+                case 'progress_desc':
+                    return parseFloat(b.dataset.progress) - parseFloat(a.dataset.progress);
+                default: // newest
+                    return parseInt(b.dataset.created) - parseInt(a.dataset.created);
+            }
+        });
+
+        // Hide all items first
+        campaignItems.forEach(item => {
+            item.classList.add('hidden');
+            item.classList.remove('visible');
+        });
+
+        // Show filtered and sorted items
+        filteredItems.forEach((item, index) => {
+            if (index < visibleCount) {
                 item.classList.remove('hidden');
                 item.classList.add('visible');
-                item.style.transitionDelay = `${(index % 6) * 0.1}s`;
-            } else {
-                item.classList.add('hidden');
-                item.classList.remove('visible');
-            }
-        });
-
-        // Update load more button
-        if (currentlyShown >= campaignItems.length) {
-            if (loadMoreBtn) {
-                loadMoreBtn.style.display = 'none';
-            }
-        }
-    }
-
-    // Load more functionality
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', () => {
-            const nextBatch = Math.min(currentlyShown + itemsPerLoad, campaignItems.length);
-            
-            // Show next batch with staggered animation
-            for (let i = currentlyShown; i < nextBatch; i++) {
+                // Add staggered animation
                 setTimeout(() => {
-                    campaignItems[i].classList.remove('hidden');
-                    campaignItems[i].classList.add('visible');
-                }, (i - currentlyShown) * 100);
-            }
-            
-            currentlyShown = nextBatch;
-            
-            // Hide button if all items are shown
-            if (currentlyShown >= campaignItems.length) {
-                setTimeout(() => {
-                    loadMoreBtn.style.display = 'none';
-                }, 500);
-            }
-            
-            // Scroll to new content
-            setTimeout(() => {
-                campaignItems[currentlyShown - itemsPerLoad].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }, 600);
-        });
-    }
-
-    // Enhanced search functionality - REMOVED CATEGORY FILTER
-    const searchInput = document.getElementById('campaignSearch');
-    const sortFilter = document.getElementById('sortFilter');
-
-    function filterCampaigns() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const sortValue = sortFilter.value;
-        
-        let visibleCount = 0;
-        
-        campaignItems.forEach((item, index) => {
-            const title = item.querySelector('.campaign-title').textContent.toLowerCase();
-            const description = item.querySelector('.text-muted').textContent.toLowerCase();
-            
-            let shouldShow = true;
-            
-            // Search filter
-            if (searchTerm && !title.includes(searchTerm) && !description.includes(searchTerm)) {
-                shouldShow = false;
-            }
-            
-            if (shouldShow && visibleCount < currentlyShown) {
-                item.classList.remove('hidden');
-                item.classList.add('visible');
-                item.style.transitionDelay = `${(visibleCount % 6) * 0.1}s`;
-                visibleCount++;
-            } else {
-                item.classList.add('hidden');
-                item.classList.remove('visible');
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
             }
         });
-        
-        // Update load more button visibility
+
+        // Show/hide load more button
         if (loadMoreBtn) {
-            loadMoreBtn.style.display = visibleCount >= currentlyShown && currentlyShown < campaignItems.length ? 'block' : 'none';
+            loadMoreBtn.style.display = filteredItems.length > visibleCount ? 'block' : 'none';
         }
+
+        // Reorder items in DOM
+        filteredItems.forEach(item => {
+            campaignGrid?.appendChild(item);
+        });
     }
 
-    // Add event listeners for search and filter
-    if (searchInput) {
-        searchInput.addEventListener('input', filterCampaigns);
-    }
-    
-    if (sortFilter) {
-        sortFilter.addEventListener('change', filterCampaigns);
+    function loadMoreCampaigns() {
+        visibleCount += itemsPerLoad;
+        filterAndSortCampaigns();
     }
 
-    // Scroll animations
+    // Event listeners for search and filter
+    searchInput?.addEventListener('input', filterAndSortCampaigns);
+    sortFilter?.addEventListener('change', filterAndSortCampaigns);
+    loadMoreBtn?.addEventListener('click', loadMoreCampaigns);
+
+    // Initial setup
+    filterAndSortCampaigns();
+
+    // Animate campaign items on scroll
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -1616,26 +1338,17 @@
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     }, observerOptions);
 
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initialize campaigns
-        initializeCampaigns();
-        
-        // Initialize scroll animations
-        const animatedElements = document.querySelectorAll('.fade-in-up:not(.campaign-item)');
-        animatedElements.forEach((el, index) => {
-            observer.observe(el);
-            el.style.transitionDelay = `${index * 0.1}s`;
-        });
-
-        // FIXED - Initialize first slide properly
-        showSlide(0);
+    campaignItems.forEach(item => {
+        observer.observe(item);
     });
+});
 </script>
+
 @endsection
 
