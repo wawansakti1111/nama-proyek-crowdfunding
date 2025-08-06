@@ -69,6 +69,11 @@
                 line-height: 1.6;
                 min-height: 100vh;
                 overflow-x: hidden;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            body.menu-open {
+                overflow: hidden; /* Prevent scrolling when mobile menu is open */
             }
 
             /* Enhanced Header Styles with Modern Glassmorphism */
@@ -120,6 +125,7 @@
                 padding: 0 2rem;
                 position: relative;
                 z-index: 2;
+                height: 70px; /* Set a fixed height for the header container */
             }
 
             .logo {
@@ -132,6 +138,19 @@
                 gap: 0.75rem;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 position: relative;
+                height: 100%; /* Allow logo container to take full height of header-container */
+            }
+
+            /* Styling for the new image logo */
+            .logo img {
+                height: 400%; /* Make image take full height of its parent (.logo) */
+                width: auto;
+                object-fit: contain; /* Ensure the image scales down without cropping */
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .logo:hover img {
+                transform: scale(1.1);
             }
 
             .logo::before {
@@ -156,14 +175,6 @@
             .logo:hover {
                 transform: translateY(-2px);
                 filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
-            }
-
-            .logo svg {
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .logo:hover svg {
-                transform: rotate(10deg) scale(1.1);
             }
 
             .nav-links {
@@ -320,6 +331,178 @@
                 height: 1px;
                 background: var(--slate-200);
                 margin: 0.5rem 0;
+            }
+
+            /* Hamburger Menu and Overlay */
+            .hamburger-menu {
+                display: none; /* Hidden by default on larger screens */
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0.5rem;
+                z-index: 1001; /* Above header content */
+            }
+
+            .hamburger-icon {
+                display: block;
+                width: 28px;
+                height: 3px;
+                background-color: var(--white);
+                position: relative;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .hamburger-icon::before,
+            .hamburger-icon::after {
+                content: '';
+                display: block;
+                width: 28px;
+                height: 3px;
+                background-color: var(--white);
+                position: absolute;
+                transition: all 0.3s ease-in-out;
+            }
+
+            .hamburger-icon::before {
+                top: -8px;
+            }
+
+            .hamburger-icon::after {
+                top: 8px;
+            }
+
+            /* Animation for hamburger icon to close (X) */
+            .hamburger-menu.active .hamburger-icon {
+                background-color: transparent;
+            }
+
+            .hamburger-menu.active .hamburger-icon::before {
+                top: 0;
+                transform: rotate(45deg);
+            }
+
+            .hamburger-menu.active .hamburger-icon::after {
+                top: 0;
+                transform: rotate(-45deg);
+            }
+
+            .mobile-sidebar {
+                position: fixed;
+                top: 0;
+                right: -300px; /* Hidden off-screen */
+                width: 300px;
+                height: 100%;
+                background: rgba(5, 150, 105, 0.98); /* Slightly more opaque */
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+                transition: right 0.3s ease-in-out;
+                z-index: 999;
+                padding-top: 5rem; /* Space for header */
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .mobile-sidebar.open {
+                right: 0; /* Slide in */
+            }
+
+            .mobile-sidebar .logo-mobile {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 1rem 2rem;
+                width: 100%;
+                text-align: left;
+                color: var(--white);
+                font-size: 1.5rem;
+                font-weight: 800;
+                margin-bottom: 1rem;
+            }
+
+            .mobile-sidebar .logo-mobile img {
+                height: 35px; /* Adjust height for mobile logo */
+                width: auto;
+            }
+
+            .mobile-sidebar a {
+                color: var(--white);
+                text-decoration: none;
+                font-weight: 600;
+                padding: 1rem 2rem;
+                width: 100%;
+                text-align: left;
+                transition: background-color 0.2s ease;
+            }
+
+            .mobile-sidebar a:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .mobile-sidebar .login-btn {
+                background: var(--white);
+                color: var(--emerald-700);
+                border-radius: 2rem;
+                margin: 1rem 2rem; /* Center button in sidebar */
+                width: calc(100% - 4rem); /* Adjust width for padding */
+                text-align: center;
+                padding: 0.75rem 1.5rem;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .mobile-sidebar .login-btn:hover {
+                background: var(--emerald-50);
+            }
+
+            .mobile-sidebar .user-dropdown .dropdown-toggle {
+                background: none;
+                border: none;
+                color: var(--white);
+                padding: 1rem 2rem;
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .mobile-sidebar .user-dropdown .dropdown-menu {
+                position: static; /* Allow menu to flow in sidebar */
+                background: rgba(255, 255, 255, 0.1);
+                box-shadow: none;
+                border: none;
+                margin: 0.5rem 0 0.5rem 2rem;
+                width: calc(100% - 4rem);
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+            }
+
+            .mobile-sidebar .user-dropdown .dropdown-menu a {
+                color: var(--white);
+                padding: 0.5rem 1rem;
+            }
+
+            .mobile-sidebar .user-dropdown .dropdown-menu a:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(5px);
+                z-index: 998;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            }
+
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
             }
 
             /* Enhanced Main Content Styles */
@@ -651,25 +834,27 @@
             }
 
             @media (max-width: 768px) {
-                .header-container {
-                    flex-direction: column;
-                    gap: 1rem;
-                    padding: 0 1rem;
-                }
-
                 .nav-links {
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    gap: 0.5rem;
+                    display: none; /* Hide desktop nav links on mobile */
                 }
 
-                .nav-links a {
-                    padding: 0.625rem 1rem;
-                    font-size: 0.875rem;
+                .hamburger-menu {
+                    display: block; /* Show hamburger menu on mobile */
+                }
+
+                .header-container {
+                    flex-direction: row; /* Keep logo and hamburger side-by-side */
+                    justify-content: space-between;
+                    padding: 0 1rem;
+                    height: 60px; /* Adjust height for smaller screens */
                 }
 
                 .logo {
                     font-size: 1.5rem;
+                }
+
+                .logo img {
+                    height: 100%; /* Ensure logo scales with new header height */
                 }
 
                 .page-title {
@@ -706,8 +891,12 @@
                     padding: 1rem 0;
                 }
 
-                .nav-links a.login-btn {
-                    padding: 0.75rem 1.5rem;
+                .header-container {
+                    height: 50px; /* Further adjust height for very small screens */
+                }
+
+                .logo img {
+                    height: 100%; /* Ensure logo scales with new header height */
                 }
 
                 .page-title {
@@ -729,22 +918,19 @@
         </style>
     </head>
     <body>
-        <!-- Enhanced Header with Modern Navigation -->
         <header class="header">
             <div class="header-container">
                 <a href="{{ route('home') }}" class="logo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9,22 9,12 15,12 15,22"></polyline>
-                    </svg>
-                    Platform Pesantren
+                    {{-- Mengganti SVG dengan gambar logo --}}
+                    <img src="{{ asset('images/Logo Amallan.png') }}" alt="Logo Amallan">
+                    {{-- Menghapus teks "Platform Pesantren" jika gambar sudah cukup --}}
                 </a>
                 
-                <nav class="nav-links">
+                <nav class="nav-links" id="mainNav">
                     <a href="{{ route('home') }}">Beranda</a>
-                    <a href="#kampanye">Kampanye</a>
-                    <a href="#tentang">Tentang</a>
-                    <a href="#kontak">Kontak</a>
+                    <a href="{{ route('home') }}#kampanye">Kampanye</a>
+                    <a href="https://amallan.id">Tentang</a>
+                    <a href="{{ route('home') }}#kontak">Kontak</a>
                     
                     @auth
                         <div class="user-dropdown">
@@ -810,18 +996,100 @@
                             </div>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="login-btn">Masuk</a>
+                        {{-- Tombol "Masuk" dihapus --}}
                     @endauth
                 </nav>
+
+                <button class="hamburger-menu" id="hamburgerMenu">
+                    <span class="hamburger-icon"></span>
+                </button>
             </div>
         </header>
 
-        <!-- Main Content -->
+        <div class="mobile-sidebar" id="mobileSidebar">
+            {{-- Menambahkan logo gambar di sidebar mobile --}}
+            <a href="{{ route('home') }}" class="logo-mobile">
+                <img src="{{ asset('images/Logo Amallan.png') }}" alt="Logo Amallan Mobile">
+            </a>
+            <a href="{{ route('home') }}" class="sidebar-link">Beranda</a>
+            <a href="{{ route('home') }}#kampanye" class="sidebar-link">Kampanye</a>
+            <a href="https://amallan.id" class="sidebar-link">Tentang</a>
+            <a href="{{ route('home') }}#kontak" class="sidebar-link">Kontak</a>
+
+            @auth
+                <div class="user-dropdown">
+                    <div class="dropdown-toggle">
+                        <div class="user-avatar">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                        <span>{{ Auth::user()->name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6,9 12,15 18,9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu">
+                        @if(Auth::user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="9" y1="9" x2="15" y2="9"></line>
+                                    <line x1="9" y1="15" x2="15" y2="15"></line>
+                                </svg>
+                                Dashboard Admin
+                            </a>
+                            <a href="{{ route('admin.campaigns') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                </svg>
+                                Kelola Kampanye
+                            </a>
+                            <a href="{{ route('admin.payments') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                </svg>
+                                Verifikasi Pembayaran
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        @endif
+                        <a href="{{ route('profile.edit') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Profil
+                        </a>
+                        <a href="{{ route('donations.history') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            Riwayat Donasi
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+                            @csrf
+                            <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16,17 21,12 16,7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                Keluar
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            @else
+                {{-- Tombol "Masuk" dihapus --}}
+            @endauth
+        </div>
+
+        <div class="overlay" id="mobileOverlay"></div>
+
         <main class="main-content">
             @yield('content')
         </main>
 
-        <!-- Enhanced Footer -->
         <footer class="footer" id="kontak">
             <div class="footer-content">
                 {{-- Footer Top --}}
@@ -859,8 +1127,8 @@
                         <div class="footer-column">
                             <h4>Platform</h4>
                             <ul class="footer-menu">
-                                <li><a href="#tentang">Tentang Kami</a></li>
-                                <li><a href="#kampanye">Kampanye Aktif</a></li>
+                                <li><a href="https://amallan.id">Tentang Kami</a></li>
+                                <li><a href="{{ route('home') }}#kampanye">Kampanye Aktif</a></li>
                                 <li><a href="#">Cara Berdonasi</a></li>
                                 <li><a href="#">Laporan Keuangan</a></li>
                             </ul>
@@ -880,7 +1148,14 @@
                             <h4>Bantuan</h4>
                             <ul class="footer-menu">
                                 <li><a href="#">FAQ</a></li>
-                                <li><a href="#">Hubungi Kami</a></li>
+                                {{-- PERBAIKAN: Menggunakan form untuk memastikan tombol bisa ditekan --}}
+                                <li>
+                                    <form method="GET" action="mailto:amallanindonesia@gmail.com" style="margin: 0;">
+                                        <a href="#" onclick="this.closest('form').submit(); return false;">
+                                            Hubungi Kami
+                                        </a>
+                                    </form>
+                                </li>
                                 <li><a href="#">Panduan</a></li>
                                 <li><a href="#">Syarat & Ketentuan</a></li>
                             </ul>
@@ -894,7 +1169,7 @@
                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                         <polyline points="22,6 12,13 2,6"></polyline>
                                     </svg>
-                                    <span>info@platformpesantren.id</span>
+                                    <span>amallanindonesia@gmail.com</span>
                                 </div>
                                 <div class="contact-item">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -929,10 +1204,10 @@
         </footer>
 
         <script>
-            // Enhanced User Dropdown Functionality
             document.addEventListener('DOMContentLoaded', function() {
+                // Enhanced User Dropdown Functionality
                 const userDropdown = document.querySelector('.user-dropdown');
-                const dropdownMenu = document.querySelector('.dropdown-menu');
+                const dropdownMenu = document.querySelector('.user-dropdown .dropdown-menu');
                 
                 if (userDropdown && dropdownMenu) {
                     let timeoutId;
@@ -950,6 +1225,38 @@
                             dropdownMenu.style.visibility = 'hidden';
                             dropdownMenu.style.transform = 'translateY(-10px)';
                         }, 150);
+                    });
+                }
+
+                // Hamburger menu functionality
+                const hamburgerMenu = document.getElementById('hamburgerMenu');
+                const mobileSidebar = document.getElementById('mobileSidebar');
+                const mobileOverlay = document.getElementById('mobileOverlay');
+                const body = document.body;
+
+                if (hamburgerMenu && mobileSidebar && mobileOverlay) {
+                    hamburgerMenu.addEventListener('click', function() {
+                        hamburgerMenu.classList.toggle('active');
+                        mobileSidebar.classList.toggle('open');
+                        mobileOverlay.classList.toggle('active');
+                        body.classList.toggle('menu-open'); // Add class to body to prevent scroll
+                    });
+
+                    mobileOverlay.addEventListener('click', function() {
+                        hamburgerMenu.classList.remove('active');
+                        mobileSidebar.classList.remove('open');
+                        mobileOverlay.classList.remove('active');
+                        body.classList.remove('menu-open');
+                    });
+
+                    // Close mobile menu when a sidebar link is clicked
+                    document.querySelectorAll('.mobile-sidebar .sidebar-link').forEach(link => {
+                        link.addEventListener('click', function() {
+                            hamburgerMenu.classList.remove('active');
+                            mobileSidebar.classList.remove('open');
+                            mobileOverlay.classList.remove('active');
+                            body.classList.remove('menu-open');
+                        });
                     });
                 }
 
@@ -988,4 +1295,3 @@
         </script>
     </body>
 </html>
-
