@@ -990,47 +990,50 @@
     }
 </style>
 
-<!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
         <h1 class="page-title">Platform Crowdfunding Terpercaya</h1>
         <p class="page-subtitle">Wujudkan impian Anda bersama komunitas yang peduli. Mulai kampanye atau dukung proyek yang menginspirasi.</p>
         
-        <!-- Slider -->
         <div class="slider-container">
             <div class="slider-wrapper">
                 @php
                 $pondokPesantren = [
                     [
-                        'nama' => 'Pondok Pesantren Al-Hikmah',
-                        'deskripsi' => 'Pondok pesantren modern yang menggabungkan pendidikan agama dan umum dengan fasilitas lengkap untuk santri putra dan putri.',
-                        'link' => '/pondok/al-hikmah'
+                        'nama' => 'Pondok Pesantren Hidayatul Muhsinin',
+                        'deskripsi' => 'Wujudkan impian pendidikan islami berahlak mulia untuk putra putri anda dipondok pesantren Hidayatul Muhsinin.',
+                        'link' => 'https://hidayatulmuhsinin.amallan.id/',
+                        'gambar' => 'assets/images/slider/gambar-baru-1.jpg'
                     ],
                     [
-                        'nama' => 'Pondok Pesantren Darul Ulum',
-                        'deskripsi' => 'Lembaga pendidikan Islam terpadu yang fokus pada pembentukan karakter dan keilmuan dengan tradisi salaf yang kuat.',
-                        'link' => '/pondok/darul-ulum'
+                        'nama' => 'Pondok Pesantren Serumpun Cahaya',
+                        'deskripsi' => 'Mewujudkan generasi yang cerdas, jenius, trampil, disiplin dan berakhqul karimah dalam kehidupan sosial, saling menghormati dan menghargai.',
+                        'link' => 'https://serumpuncahaya.amallan.id/',
+                        'gambar' => 'assets/images/slider/gambar-baru-2.jpg'
                     ],
                     [
-                        'nama' => 'Pondok Pesantren Nurul Huda',
-                        'deskripsi' => 'Pesantren yang mengutamakan pendidikan Al-Quran dan Hadits dengan metode pembelajaran yang inovatif dan berkarakter.',
-                        'link' => '/pondok/nurul-huda'
+                        'nama' => 'Pondok Pesantren Fastabiqul Khoirat',
+                        'deskripsi' => 'Jadilah penerus islam yang sejati di pondok pesantren fastabiqul khoirat, cukuplah yatim orang tuanya namun tidak yatim ilmu & akhlak. .',
+                        'link' => 'https://fastabiqulkhairat.amallan.id/',
+                        'gambar' => 'assets/images/slider/gambar-baru-3.jpg'
                     ],
                     [
-                        'nama' => 'Pondok Pesantren Baitul Hikmah',
-                        'deskripsi' => 'Institusi pendidikan Islam yang menyelenggarakan program tahfidz Al-Quran dan pendidikan formal terintegrasi.',
-                        'link' => '/pondok/baitul-hikmah'
+                        'nama' => 'Pondok Pesantren Darul Falah',
+                        'deskripsi' => 'Darul Falah Tempat Ananda Tumbuh dalam Iman dan Ilmu.',
+                        'link' => 'https://darulfalah.amallan.id/',
+                        'gambar' => 'assets/images/slider/gambar-baru-4.jpeg'
                     ],
                     [
-                        'nama' => 'Pondok Pesantren Raudhatul Jannah',
-                        'deskripsi' => 'Pesantren putri yang mengkhususkan diri dalam pendidikan agama, bahasa Arab, dan keterampilan hidup untuk muslimah.',
-                        'link' => '/pondok/raudhatul-jannah'
+                        'nama' => 'Pondok Pesantren Nurul Amin',
+                        'deskripsi' => 'Selamat datang di Pesantren Nurul Amin Dengan rahmat Allah SWT, kami hadir sebagai lembaga pendidikan Islam yang berkomitmen mencetak generasi berakidah lurus, berakhlak mulia, dan unggul dalam ilmu serta amal',
+                        'link' => 'https://nurulamin.amallan.id/',
+                        'gambar' => 'assets/images/slider/gambar-baru-5.jpg'
                     ]
                 ];
                 @endphp
                 
                 @foreach($pondokPesantren as $index => $pondok)
-                <div class="slide {{ $index === 0 ? 'active' : '' }}">
+                <div class="slide {{ $index === 0 ? 'active' : '' }}" style="background-image: url('{{ asset($pondok['gambar']) }}')">
                     <div class="slide-content">
                         <h3>{{ $pondok['nama'] }}</h3>
                         <p>{{ $pondok['deskripsi'] }}</p>
@@ -1045,26 +1048,22 @@
                 @endforeach
             </div>
             
-            <!-- Navigation Dots -->
             <div class="slider-nav">
                 @foreach($pondokPesantren as $index => $pondok)
                 <div class="nav-dot {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></div>
                 @endforeach
             </div>
             
-            <!-- Navigation Arrows -->
             <div class="slider-arrow prev">‹</div>
             <div class="slider-arrow next">›</div>
         </div>
     </div>
 </section>
 
-<!-- Kampanye Section -->
 <section class="section section-kampanye">
     <div class="container">
         <h2 class="section-title">Kampanye Terbaru</h2>
         
-        <!-- Search and Filter -->
         <div class="search-filter-section">
             <div class="search-filter-container">
                 <div class="search-box">
@@ -1088,10 +1087,9 @@
             </div>
         </div>
         
-        <!-- Campaign Grid -->
         <div class="campaign-grid" id="campaignGrid">
             @foreach($campaigns as $campaign)
-            <div class="campaign-item visible" data-title="{{ strtolower($campaign->title) }}" data-created="{{ $campaign->created_at->timestamp }}" data-target="{{ $campaign->target_amount }}" data-progress="{{ $campaign->current_amount / $campaign->target_amount * 100 }}">
+            <div class="campaign-item visible" data-title="{{ strtolower($campaign->title) }}" data-created="{{ $campaign->created_at->timestamp }}" data-target="{{ $campaign->target_amount }}" data-progress="{{ $campaign->collected_amount / $campaign->target_amount * 100 }}">
                 <a href="{{ route('campaigns.show', $campaign) }}">
                     @if($campaign->image)
                         <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
@@ -1103,13 +1101,13 @@
                         <h3 class="campaign-title">{{ $campaign->title }}</h3>
                         
                         <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: {{ min(($campaign->current_amount / $campaign->target_amount) * 100, 100) }}%"></div>
-                            <div class="progress-percentage-text">{{ number_format(min(($campaign->current_amount / $campaign->target_amount) * 100, 100), 1) }}%</div>
+                            <div class="progress-bar" style="width: {{ min(($campaign->collected_amount / $campaign->target_amount) * 100, 100) }}%"></div>
+                            <div class="progress-percentage-text">{{ number_format(min(($campaign->collected_amount / $campaign->target_amount) * 100, 100), 1) }}%</div>
                         </div>
                         
                         <div class="campaign-footer">
                             <div>
-                                <strong>Rp {{ number_format($campaign->current_amount, 0, ',', '.') }}</strong>
+                                <strong>Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</strong>
                                 <br>
                                 <small>dari Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</small>
                             </div>
@@ -1120,7 +1118,7 @@
                                     <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                                 </svg>
-                                {{ $campaign->donations_count ?? 0 }} donatur
+                                {{ $campaign->donations->where('status', 'verified')->count() }} donatur
                             </div>
                         </div>
                     </div>
@@ -1129,7 +1127,6 @@
             @endforeach
         </div>
         
-        <!-- Load More Button -->
         <div class="load-more-container">
             <button class="btn-load-more" id="loadMoreBtn" style="display: none;">
                 Muat Lebih Banyak
@@ -1138,12 +1135,10 @@
     </div>
 </section>
 
-<!-- Tentang Section -->
 <section class="section section-tentang">
     <div class="container">
         <h2 class="section-title">Mengapa Memilih Platform Kami?</h2>
         
-        <!-- Features Grid -->
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
@@ -1182,7 +1177,6 @@
     </div>
 </section>
 
-<!-- Contact Section -->
 <section class="contact-section">
     <div class="container">
         <div class="contact-content">
@@ -1351,4 +1345,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 @endsection
-
