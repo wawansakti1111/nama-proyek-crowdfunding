@@ -801,214 +801,252 @@
     }
 
     .campaign-title {
-        font-size: clamp(1rem, 1.8vw, 1.1rem);
+        font-size: 1.1rem;
         font-weight: 700;
         margin-bottom: 0.9rem;
         color: var(--slate-800);
-        line-height: 1.4;
-        transition: color 0.3s ease;
-    }
-
-    .campaign-item:not(.completed):hover .campaign-title {
-        color: var(--emerald-700);
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .campaign-item.completed .campaign-title {
         color: var(--slate-600);
     }
 
-    /* Progress Bar - Enhanced with Glow Effect */
+    /* Progress Bar - Enhanced */
     .progress-bar-container {
-        width: 100%;
-        height: 7px;
-        background-color: var(--emerald-100);
-        border-radius: 4px;
-        overflow: hidden;
-        margin: 0.9rem 0;
         position: relative;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        background: var(--slate-200);
+        border-radius: 1rem;
+        height: 8px;
+        margin: 1rem 0;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .progress-bar {
         height: 100%;
         background: var(--gradient-emerald);
-        border-radius: 4px;
+        border-radius: 1rem;
         transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
-        box-shadow: 0 1px 5px rgba(16, 185, 129, 0.3);
-    }
-
-    .progress-bar.completed {
-        background: var(--gradient-completed);
-        box-shadow: 0 1px 5px rgba(100, 116, 139, 0.3);
-    }
-
-    .progress-bar::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-        animation: shimmer 2s infinite;
-    }
-
-    .progress-percentage-text {
-        position: absolute;
-        top: -20px;
-        right: 0;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: var(--slate-700);
-        background: rgba(255, 255, 255, 0.9);
-        padding: 0.15rem 0.5rem;
-        border-radius: 0.7rem;
-        backdrop-filter: blur(4px);
-        box-shadow: var(--shadow);
-    }
-
-    .progress-percentage-text.completed {
-        background: var(--emerald-500);
-        color: var(--white);
-    }
-
-    .campaign-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 0.9rem;
-        font-size: 0.85rem;
-        position: relative;
-        z-index: 2;
-    }
-
-    .campaign-footer strong {
-        color: var(--emerald-600);
-        font-weight: 700;
-    }
-
-    .campaign-item.completed .campaign-footer strong {
-        color: var(--slate-600);
-    }
-
-    .donator-count { 
-        display: flex; 
-        align-items: center; 
-        gap: 5px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        color: var(--slate-600);
-    }
-
-    .campaign-item.completed .donator-count {
-        color: var(--slate-500);
-    }
-
-    /* Contact Section - Enhanced */
-    .contact-section {
-        background: var(--gradient-emerald);
-        color: var(--white);
-        border-radius: 1.5rem;
-        padding: clamp(1.8rem, 4vw, 2.5rem);
-        margin: 1.8rem 0;
-        text-align: center;
-        position: relative;
         overflow: hidden;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
     }
 
-    .contact-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-        pointer-events: none;
-    }
-
-    .contact-content {
-        position: relative;
-        z-index: 2;
-    }
-
-    .contact-section .section-title {
-        color: var(--white);
-        margin-bottom: 0.9rem;
-        /* GARIS DIHILANGKAN - ::after removed */
-    }
-
-    .contact-section .page-subtitle {
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 1.8rem;
-    }
-
-    .btn-contact {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.7rem;
-        background: var(--white);
-        color: var(--emerald-700);
-        padding: 1.1rem 2.2rem;
-        border-radius: 1.3rem;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: var(--shadow-lg);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .btn-contact::before {
+    .progress-bar::before {
         content: '';
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.1), transparent);
-        transition: left 0.5s ease;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: progressShimmer 2s infinite;
     }
 
-    .btn-contact:hover::before {
-        left: 100%;
+    .progress-bar.completed {
+        background: var(--gradient-completed);
+        box-shadow: 0 0 10px rgba(100, 116, 139, 0.3);
     }
 
-    .btn-contact:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: var(--shadow-xl);
-        background: var(--emerald-50);
+    .progress-percentage-text {
+        position: absolute;
+        top: 50%;
+        right: 0.5rem;
+        transform: translateY(-50%);
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--emerald-700);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.5rem;
+        backdrop-filter: blur(4px);
     }
 
-    /* Load More Button - CENTERED & Enhanced */
-    .load-more-container {
+    .progress-percentage-text.completed {
+        color: var(--slate-600);
+    }
+
+    .campaign-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .campaign-footer strong {
+        color: var(--emerald-700);
+        font-size: 1rem;
+    }
+
+    .campaign-item.completed .campaign-footer strong {
+        color: var(--slate-600);
+    }
+
+    .campaign-footer small {
+        color: var(--slate-500);
+        font-size: 0.8rem;
+    }
+
+    .donator-count {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--slate-600);
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .campaign-item.completed .donator-count {
+        color: var(--slate-500);
+    }
+
+    /* EMPTY STATE STYLES - PESAN KAMPANYE KOSONG TANPA ROUTE */
+    .empty-campaigns-container {
         text-align: center;
-        margin-top: 2.5rem;
+        padding: clamp(3rem, 6vw, 4rem) clamp(1.5rem, 3vw, 2rem);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: var(--blur-backdrop);
+        border-radius: 1.5rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin: 2rem 0;
         position: relative;
+        overflow: hidden;
     }
 
-    .btn-load-more {
+    .empty-campaigns-container::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(from 0deg, transparent, rgba(16, 185, 129, 0.03), transparent);
+        animation: rotate 30s linear infinite;
+        pointer-events: none;
+    }
+
+    .empty-icon {
+        width: 100px;
+        height: 100px;
+        background: var(--gradient-emerald-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem auto;
+        color: var(--white);
+        box-shadow: var(--shadow-xl);
+        position: relative;
+        z-index: 2;
+        animation: emptyIconFloat 3s ease-in-out infinite;
+    }
+
+    .empty-icon::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        right: -8px;
+        bottom: -8px;
+        background: var(--gradient-emerald);
+        border-radius: 50%;
+        z-index: -1;
+        opacity: 0.3;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .empty-title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 800;
+        color: var(--slate-800);
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 2;
         background: var(--gradient-animated);
         background-size: 300% 300%;
         animation: gradientShift 6s ease infinite;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .empty-description {
+        font-size: clamp(1rem, 2vw, 1.1rem);
+        color: var(--slate-600);
+        margin-bottom: 2rem;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
+    }
+
+    .empty-info {
+        background: rgba(16, 185, 129, 0.1);
+        border: 2px solid var(--emerald-200);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .empty-info-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--emerald-800);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .empty-info-text {
+        font-size: 0.9rem;
+        color: var(--emerald-700);
+        line-height: 1.5;
+    }
+
+    /* Load More Button - CENTERED */
+    .load-more-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: clamp(2rem, 4vw, 2.5rem) 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .btn-load-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--gradient-emerald-light);
+        background-size: 300% 300%;
+        animation: gradientShift 8s ease infinite;
         color: var(--white);
         border: none;
-        padding: 1.1rem 2.5rem;
+        padding: clamp(1rem, 2.2vw, 1.2rem) clamp(1.8rem, 3.5vw, 2.5rem);
         border-radius: 1.5rem;
-        font-weight: 600;
-        font-size: 0.95rem;
+        font-weight: 700;
+        font-size: clamp(0.9rem, 1.8vw, 1rem);
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: var(--shadow-lg);
         position: relative;
         overflow: hidden;
-        backdrop-filter: blur(8px);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        
-        /* CENTERED - Explicitly centered */
-        display: block;
-        margin: 0 auto;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
     }
 
     .btn-load-more::before {
@@ -1029,23 +1067,58 @@
     .btn-load-more:hover {
         transform: translateY(-3px) scale(1.05);
         box-shadow: var(--shadow-xl);
-        border-color: rgba(255, 255, 255, 0.4);
     }
 
-    .btn-load-more:active {
-        transform: translateY(-1px) scale(1.02);
+    .btn-load-more:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
     }
 
-    /* Responsive Design - Enhanced */
+    /* Contact Button */
+    .btn-contact {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--gradient-emerald);
+        color: var(--white);
+        padding: clamp(0.9rem, 2vw, 1.1rem) clamp(1.5rem, 3vw, 2rem);
+        border-radius: 1.5rem;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: clamp(0.9rem, 1.8vw, 1rem);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: var(--shadow-lg);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .btn-contact:hover::before {
+        left: 100%;
+    }
+
+    .btn-contact:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: var(--shadow-xl);
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
-        .container {
-            padding: 0 1rem;
-        }
-
         .search-filter-container {
             flex-direction: column;
             align-items: stretch;
-            gap: 1rem;
         }
 
         .search-box {
@@ -1054,108 +1127,40 @@
 
         .filter-container {
             justify-content: center;
-            flex-wrap: wrap;
         }
 
         .campaign-grid {
             grid-template-columns: 1fr;
-            gap: 1rem;
         }
 
         .features-grid {
             grid-template-columns: 1fr;
-            gap: 1.3rem;
         }
 
-        .section-kampanye,
-        .section-tentang,
-        .contact-section {
-            margin: 1.3rem 0;
-        }
-
-        .hero-decoration {
-            display: none;
+        .empty-icon {
+            width: 80px;
+            height: 80px;
         }
     }
 
     @media (max-width: 480px) {
-        .container {
-            padding: 0 0.75rem;
+        .slider-arrow {
+            display: none;
         }
 
-        .slide {
-            padding: 1.3rem 1rem;
+        .campaign-footer {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
 
-        .section {
-            padding: 1.3rem 0;
-        }
-
-        .section-kampanye,
-        .section-tentang {
-            padding: 1.3rem;
-            margin: 1rem 0;
-        }
-
-        .contact-section {
-            padding: 1.8rem 1.3rem;
-            margin: 1rem 0;
-        }
-
-        .search-filter-section {
-            padding: 1.1rem;
-        }
-
-        .feature-card {
-            padding: 1.1rem;
-        }
-
-        .campaign-content {
-            padding: 1rem;
-        }
-
-        .campaign-grid {
-            gap: 0.75rem;
-        }
-
-        .btn-load-more {
-            padding: 1rem 2rem;
-            font-size: 0.9rem;
+        .empty-icon {
+            width: 70px;
+            height: 70px;
         }
     }
 
-    /* Animation Keyframes - Enhanced */
-    @keyframes slideContentIn {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes shimmer {
-        0% {
-            transform: translateX(-100%);
-        }
-        100% {
-            transform: translateX(100%);
-        }
-    }
-
-    @keyframes pulse {
-        0%, 100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-        50% {
-            opacity: 0.7;
-            transform: scale(1.05);
-        }
-    }
-
+    /* Animations */
     @keyframes float {
         0% {
             transform: translateY(100vh) rotate(0deg);
@@ -1194,6 +1199,24 @@
         }
     }
 
+    @keyframes shimmer {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 100%;
+        }
+    }
+
+    @keyframes progressShimmer {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 100%;
+        }
+    }
+
     @keyframes backgroundShift {
         0%, 100% {
             opacity: 1;
@@ -1211,6 +1234,26 @@
         50% {
             transform: scale(1.05);
             box-shadow: var(--shadow-xl);
+        }
+    }
+
+    @keyframes emptyIconFloat {
+        0%, 100% {
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(-8px) scale(1.02);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+        50% {
+            transform: scale(1.05);
+            opacity: 0.5;
         }
     }
 
@@ -1381,86 +1424,119 @@
             </div>
         </div>
         
-        <div class="campaign-grid" id="campaignGrid">
-            @foreach($campaigns as $campaign)
-            @php
-                $progressPercentage = min(($campaign->collected_amount / $campaign->target_amount) * 100, 100);
-                $isCompleted = $progressPercentage >= 100;
-                $isAlmostComplete = $progressPercentage >= 90 && $progressPercentage < 100;
-            @endphp
-            <div class="campaign-item visible {{ $isCompleted ? 'completed' : '' }}" 
-                 data-title="{{ strtolower($campaign->title) }}" 
-                 data-created="{{ $campaign->created_at->timestamp }}" 
-                 data-target="{{ $campaign->target_amount }}" 
-                 data-progress="{{ $progressPercentage }}">
+        <!-- LOGIKA PESAN KAMPANYE KOSONG - TANPA MENGUBAH ROUTE -->
+        @if($campaigns->isEmpty())
+            <div class="empty-campaigns-container">
+                <div class="empty-icon">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
                 
-                <!-- Status Badge -->
-                @if($isCompleted)
-                    <div class="campaign-status-badge completed">TARGET TERCAPAI</div>
-                @elseif($isAlmostComplete)
-                    <div class="campaign-status-badge almost-complete">HAMPIR SELESAI</div>
-                @else
-                    <div class="campaign-status-badge">AKTIF</div>
-                @endif
+                <h3 class="empty-title">Belum Ada Kampanye</h3>
+                <p class="empty-description">
+                    Saat ini belum ada kampanye yang tersedia. Platform ini siap menerima kampanye-kampanye baru yang menginspirasi dan bermakna.
+                </p>
                 
-                <!-- Conditional Link - Disabled if completed -->
-                @if($isCompleted)
-                    <div>
-                @else
-                    <a href="{{ route('campaigns.show', $campaign) }}">
-                @endif
-                    @if($campaign->image)
-                        <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
+                <div class="empty-info">
+                    <div class="empty-info-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4"/>
+                            <path d="M12 8h.01"/>
+                        </svg>
+                        Informasi
+                    </div>
+                    <p class="empty-info-text">
+                        Kampanye akan muncul di sini setelah dibuat dan disetujui. Silakan kembali lagi nanti untuk melihat kampanye-kampanye terbaru yang tersedia.
+                    </p>
+                </div>
+            </div>
+        @else
+            <!-- KAMPANYE ADA - TAMPILKAN GRID -->
+            <div class="campaign-grid" id="campaignGrid">
+                @foreach($campaigns as $campaign)
+                @php
+                    $progressPercentage = min(($campaign->collected_amount / $campaign->target_amount) * 100, 100);
+                    $isCompleted = $progressPercentage >= 100;
+                    $isAlmostComplete = $progressPercentage >= 90 && $progressPercentage < 100;
+                @endphp
+                <div class="campaign-item visible {{ $isCompleted ? 'completed' : '' }}" 
+                     data-title="{{ strtolower($campaign->title) }}" 
+                     data-created="{{ $campaign->created_at->timestamp }}" 
+                     data-target="{{ $campaign->target_amount }}" 
+                     data-progress="{{ $progressPercentage }}">
+                    
+                    <!-- Status Badge -->
+                    @if($isCompleted)
+                        <div class="campaign-status-badge completed">TARGET TERCAPAI</div>
+                    @elseif($isAlmostComplete)
+                        <div class="campaign-status-badge almost-complete">HAMPIR SELESAI</div>
                     @else
-                        <img src="https://via.placeholder.com/400x180/10b981/ffffff?text=Kampanye" alt="{{ $campaign->title }}">
+                        <div class="campaign-status-badge">AKTIF</div>
                     @endif
                     
-                    <div class="campaign-content">
-                        <h3 class="campaign-title">{{ $campaign->title }}</h3>
+                    <!-- Conditional Link - Disabled if completed -->
+                    @if($isCompleted)
+                        <div>
+                    @else
+                        <a href="{{ route('campaigns.show', $campaign) }}">
+                    @endif
+                        @if($campaign->image)
+                            <img src="{{ asset('storage/' . $campaign->image) }}" alt="{{ $campaign->title }}">
+                        @else
+                            <img src="https://via.placeholder.com/400x180/10b981/ffffff?text=Kampanye" alt="{{ $campaign->title }}">
+                        @endif
                         
-                        <div class="progress-bar-container">
-                            <div class="progress-bar {{ $isCompleted ? 'completed' : '' }}" style="width: {{ $progressPercentage }}%"></div>
-                            <div class="progress-percentage-text {{ $isCompleted ? 'completed' : '' }}">
-                                {{ number_format($progressPercentage, 1) }}%
+                        <div class="campaign-content">
+                            <h3 class="campaign-title">{{ $campaign->title }}</h3>
+                            
+                            <div class="progress-bar-container">
+                                <div class="progress-bar {{ $isCompleted ? 'completed' : '' }}" style="width: {{ $progressPercentage }}%"></div>
+                                <div class="progress-percentage-text {{ $isCompleted ? 'completed' : '' }}">
+                                    {{ number_format($progressPercentage, 1) }}%
+                                </div>
+                            </div>
+                            
+                            <div class="campaign-footer">
+                                <div>
+                                    <strong>Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</strong>
+                                    <br>
+                                    <small>dari Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</small>
+                                </div>
+                                <div class="donator-count">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                    </svg>
+                                    {{ $campaign->donations->where('status', 'verified')->count() }} donatur
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="campaign-footer">
-                            <div>
-                                <strong>Rp {{ number_format($campaign->collected_amount, 0, ',', '.') }}</strong>
-                                <br>
-                                <small>dari Rp {{ number_format($campaign->target_amount, 0, ',', '.') }}</small>
-                            </div>
-                            <div class="donator-count">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="9" cy="7" r="4"/>
-                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                                </svg>
-                                {{ $campaign->donations->where('status', 'verified')->count() }} donatur
-                            </div>
+                    @if($isCompleted)
                         </div>
-                    </div>
-                @if($isCompleted)
-                    </div>
-                @else
-                    </a>
-                @endif
+                    @else
+                        </a>
+                    @endif
+                </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
-        
-        <!-- TOMBOL MUAT LEBIH BANYAK - CENTERED -->
-        <div class="load-more-container">
-            <button class="btn-load-more" id="loadMoreBtn" style="display: none;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
-                    <path d="M12 5v14"/>
-                    <path d="m19 12-7 7-7-7"/>
-                </svg>
-                Muat Lebih Banyak
-            </button>
-        </div>
+            
+            <!-- TOMBOL MUAT LEBIH BANYAK - CENTERED -->
+            <div class="load-more-container">
+                <button class="btn-load-more" id="loadMoreBtn" style="display: none;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                        <path d="M12 5v14"/>
+                        <path d="m19 12-7 7-7-7"/>
+                    </svg>
+                    Muat Lebih Banyak
+                </button>
+            </div>
+        @endif
     </div>
 </section>
 
@@ -1500,18 +1576,12 @@
                     </svg>
                 </div>
                 <h3 class="feature-title">Transparansi Penuh</h3>
-                <p class="feature-description">Pantau perkembangan kampanye secara real-time dengan laporan yang jelas dan transparan.</p>
+                <p class="feature-description">Laporan real-time dan transparansi penuh dalam setiap donasi yang masuk dan penggunaan dana.</p>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="contact-section" id="kontak">
-    <div class="container">
-        <div class="contact-content">
-            <h2 class="section-title">Butuh Bantuan?</h2>
-            <p class="page-subtitle">Tim support kami siap membantu Anda 24/7. Hubungi kami untuk konsultasi gratis.</p>
-            <a href="mailto:support@crowdfunding.com" class="btn-contact">
+        
+        <div class="text-center mt-6">
+            <a href="#" class="btn-contact">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                     <polyline points="22,6 12,13 2,6"/>
@@ -1523,31 +1593,30 @@
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Slider functionality - FIXED AUTO-PLAY
-    const slides = document.querySelectorAll('.slide');
-    const navDots = document.querySelectorAll('.nav-dot');
-    const prevBtn = document.querySelector('.slider-arrow.prev');
-    const nextBtn = document.querySelector('.slider-arrow.next');
+    // Auto-play slider functionality - FIXED
     let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.nav-dot');
     const totalSlides = slides.length;
     let autoPlayInterval;
 
     function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove("active", "prev", "next");
-            if (i === index) {
-                slide.classList.add("active");
-            } else if (i < index) {
-                slide.classList.add("prev");
-            } else {
-                slide.classList.add("next");
-            }
+        // Remove active classes
+        slides.forEach(slide => {
+            slide.classList.remove('active', 'prev', 'next');
         });
+        dots.forEach(dot => dot.classList.remove('active'));
 
-        navDots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === index);
-        });
+        // Set current slide
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+
+        // Set previous and next slides for smooth transitions
+        const prevIndex = (index - 1 + totalSlides) % totalSlides;
+        const nextIndex = (index + 1) % totalSlides;
+        
+        slides[prevIndex].classList.add('prev');
+        slides[nextIndex].classList.add('next');
     }
 
     function nextSlide() {
@@ -1561,7 +1630,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startAutoPlay() {
-        autoPlayInterval = setInterval(nextSlide, 4000); // 4 detik
+        autoPlayInterval = setInterval(nextSlide, 4000); // 4 seconds
     }
 
     function stopAutoPlay() {
@@ -1570,88 +1639,74 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Event listeners
-    nextBtn?.addEventListener("click", () => {
-        nextSlide();
-        stopAutoPlay();
-        startAutoPlay(); // Restart auto-play
-    });
+    // Initialize slider
+    showSlide(0);
+    startAutoPlay(); // Start auto-play immediately
 
-    prevBtn?.addEventListener("click", () => {
+    // Navigation arrows
+    document.querySelector('.slider-arrow.prev').addEventListener('click', () => {
+        stopAutoPlay();
         prevSlide();
-        stopAutoPlay();
-        startAutoPlay(); // Restart auto-play
+        startAutoPlay(); // Restart auto-play after manual navigation
     });
 
-    navDots.forEach((dot, index) => {
-        dot.addEventListener("click", () => {
+    document.querySelector('.slider-arrow.next').addEventListener('click', () => {
+        stopAutoPlay();
+        nextSlide();
+        startAutoPlay(); // Restart auto-play after manual navigation
+    });
+
+    // Navigation dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            stopAutoPlay();
             currentSlide = index;
             showSlide(currentSlide);
-            stopAutoPlay();
-            startAutoPlay(); // Restart auto-play
+            startAutoPlay(); // Restart auto-play after manual navigation
         });
     });
 
-    // Auto-play with pause on hover - FIXED
+    // Pause auto-play on hover
     const sliderContainer = document.querySelector('.slider-container');
-    if (sliderContainer) {
-        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
-        sliderContainer.addEventListener('mouseleave', startAutoPlay);
-    }
+    sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+    sliderContainer.addEventListener('mouseleave', startAutoPlay);
 
-    // Start auto-play immediately
-    startAutoPlay();
-
-    // Search and filter functionality with enhanced campaign status logic
+    // Search and filter functionality
     const searchInput = document.getElementById('searchInput');
     const sortFilter = document.getElementById('sortFilter');
-    const campaignGrid = document.getElementById('campaignGrid');
-    const campaignItems = Array.from(document.querySelectorAll('.campaign-item'));
+    const campaignItems = document.querySelectorAll('.campaign-item');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
-    
-    let visibleCount = 6;
-    const itemsPerLoad = 6;
 
-    // Enhanced function to handle campaign status and filtering
-    function updateCampaignStatus() {
-        campaignItems.forEach(item => {
-            const progress = parseFloat(item.dataset.progress);
-            const isCompleted = progress >= 100;
-            
-            // Update campaign item classes
-            if (isCompleted) {
-                item.classList.add('completed');
-                // Disable the link
-                const link = item.querySelector('a');
-                if (link) {
-                    link.style.pointerEvents = 'none';
-                    link.style.cursor = 'default';
-                }
-            } else {
-                item.classList.remove('completed');
-                // Enable the link
-                const link = item.querySelector('a');
-                if (link) {
-                    link.style.pointerEvents = 'auto';
-                    link.style.cursor = 'pointer';
-                }
-            }
-        });
+    let visibleCount = 6; // Show 6 campaigns initially
+    let filteredItems = Array.from(campaignItems);
+
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 
-    function filterAndSortCampaigns() {
-        const searchTerm = searchInput?.value.toLowerCase() || '';
-        const sortValue = sortFilter?.value || 'newest';
+    function filterAndSort() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const sortValue = sortFilter.value;
 
         // Filter campaigns
-        let filteredItems = campaignItems.filter(item => {
-            const title = item.dataset.title || '';
+        filteredItems = Array.from(campaignItems).filter(item => {
+            const title = item.dataset.title;
             return title.includes(searchTerm);
         });
 
         // Sort campaigns
         filteredItems.sort((a, b) => {
             switch (sortValue) {
+                case 'newest':
+                    return parseInt(b.dataset.created) - parseInt(a.dataset.created);
                 case 'oldest':
                     return parseInt(a.dataset.created) - parseInt(b.dataset.created);
                 case 'target_asc':
@@ -1660,8 +1715,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     return parseInt(b.dataset.target) - parseInt(a.dataset.target);
                 case 'progress_desc':
                     return parseFloat(b.dataset.progress) - parseFloat(a.dataset.progress);
-                default: // newest
-                    return parseInt(b.dataset.created) - parseInt(a.dataset.created);
+                default:
+                    return 0;
             }
         });
 
@@ -1671,58 +1726,89 @@ document.addEventListener('DOMContentLoaded', function() {
             item.classList.remove('visible');
         });
 
-        // Show filtered and sorted items with staggered animation
-        filteredItems.forEach((item, index) => {
-            if (index < visibleCount) {
-                item.classList.remove('hidden');
-                item.classList.add('visible');
-                // Add staggered animation
+        // Show filtered and sorted items
+        visibleCount = Math.min(6, filteredItems.length);
+        for (let i = 0; i < visibleCount; i++) {
+            filteredItems[i].classList.remove('hidden');
+            filteredItems[i].classList.add('visible');
+        }
+
+        // Show/hide load more button
+        if (filteredItems.length > visibleCount) {
+            loadMoreBtn.style.display = 'inline-flex';
+        } else {
+            loadMoreBtn.style.display = 'none';
+        }
+
+        // Animate visible items
+        setTimeout(() => {
+            const visibleItems = document.querySelectorAll('.campaign-item.visible');
+            visibleItems.forEach((item, index) => {
                 setTimeout(() => {
                     item.style.opacity = '1';
                     item.style.transform = 'translateY(0)';
                 }, index * 100);
+            });
+        }, 50);
+    }
+
+    // Load more functionality
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            const currentVisible = visibleCount;
+            const newVisible = Math.min(currentVisible + 6, filteredItems.length);
+
+            for (let i = currentVisible; i < newVisible; i++) {
+                filteredItems[i].classList.remove('hidden');
+                filteredItems[i].classList.add('visible');
+            }
+
+            visibleCount = newVisible;
+
+            if (visibleCount >= filteredItems.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+
+            // Animate new items
+            setTimeout(() => {
+                for (let i = currentVisible; i < newVisible; i++) {
+                    setTimeout(() => {
+                        filteredItems[i].style.opacity = '1';
+                        filteredItems[i].style.transform = 'translateY(0)';
+                    }, (i - currentVisible) * 100);
+                }
+            }, 50);
+        });
+    }
+
+    // Event listeners with debouncing
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(filterAndSort, 300));
+    }
+    if (sortFilter) {
+        sortFilter.addEventListener('change', filterAndSort);
+    }
+
+    // Initialize only if campaigns exist
+    if (campaignItems.length > 0) {
+        filterAndSort();
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
+    });
 
-        // Show/hide load more button
-        if (loadMoreBtn) {
-            loadMoreBtn.style.display = filteredItems.length > visibleCount ? 'block' : 'none';
-        }
-
-        // Reorder items in DOM
-        filteredItems.forEach(item => {
-            campaignGrid?.appendChild(item);
-        });
-    }
-
-    function loadMoreCampaigns() {
-        visibleCount += itemsPerLoad;
-        filterAndSortCampaigns();
-        
-        // Add loading animation to button
-        const btn = loadMoreBtn;
-        if (btn) {
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem; animation: rotate 1s linear infinite;"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4"/><path d="m16 12-4 4-4-4"/></svg>Memuat...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }, 800);
-        }
-    }
-
-    // Event listeners for search and filter
-    searchInput?.addEventListener('input', filterAndSortCampaigns);
-    sortFilter?.addEventListener('change', filterAndSortCampaigns);
-    loadMoreBtn?.addEventListener('click', loadMoreCampaigns);
-
-    // Initial setup
-    updateCampaignStatus();
-    filterAndSortCampaigns();
-
-    // Animate campaign items on scroll with Intersection Observer
+    // Intersection Observer for animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -1737,19 +1823,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
+    // Observe campaign items
     campaignItems.forEach(item => {
         observer.observe(item);
     });
 
     // Keyboard navigation for accessibility
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft' && prevBtn) {
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            stopAutoPlay();
             prevSlide();
-            stopAutoPlay();
             startAutoPlay();
-        } else if (e.key === 'ArrowRight' && nextBtn) {
-            nextSlide();
+        } else if (e.key === 'ArrowRight') {
             stopAutoPlay();
+            nextSlide();
             startAutoPlay();
         }
     });
@@ -1758,80 +1845,29 @@ document.addEventListener('DOMContentLoaded', function() {
     let touchStartX = 0;
     let touchEndX = 0;
 
-    const sliderWrapper = document.querySelector('.slider-wrapper');
-    if (sliderWrapper) {
-        sliderWrapper.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        });
+    sliderContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
 
-        sliderWrapper.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
+    sliderContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
 
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    nextSlide(); // Swipe left - next slide
-                } else {
-                    prevSlide(); // Swipe right - previous slide
-                }
-                stopAutoPlay();
-                startAutoPlay();
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            stopAutoPlay();
+            if (diff > 0) {
+                nextSlide(); // Swipe left - next slide
+            } else {
+                prevSlide(); // Swipe right - previous slide
             }
+            startAutoPlay();
         }
     }
-
-    // Performance optimization: Debounce search input
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // Apply debounce to search
-    if (searchInput) {
-        searchInput.removeEventListener('input', filterAndSortCampaigns);
-        searchInput.addEventListener('input', debounce(filterAndSortCampaigns, 300));
-    }
-
-    // Enhanced micro-interactions
-    const cards = document.querySelectorAll('.campaign-item, .feature-card');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            if (!this.classList.contains('completed')) {
-                this.style.transform = 'translateY(-5px) scale(1.02)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            if (!this.classList.contains('completed')) {
-                this.style.transform = 'translateY(0) scale(1)';
-            }
-        });
-    });
-
-    // Parallax effect for floating particles
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const particles = document.querySelectorAll('.particle');
-        
-        particles.forEach((particle, index) => {
-            const speed = 0.5 + (index * 0.1);
-            particle.style.transform = `translateY(${scrolled * speed}px)`;
-        });
-    });
-});
 </script>
-
 @endsection
 
